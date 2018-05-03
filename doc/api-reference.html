@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.18.3">
+    <title>API Reference – snowplow_tracker v0.1.0</title>
+    <link rel="stylesheet" href="dist/app-480ffdc169.css" />
+    
+    <script src="dist/sidebar_items-14ae9ca7d8.js"></script>
+    
+    
+    
+    
+  </head>
+  <body data-type="extras">
+    <script>try { if(localStorage.getItem('night-mode')) document.body.className += ' night-mode'; } catch (e) { }</script>
+
+<div class="main">
+<button class="sidebar-button sidebar-toggle">
+  <span class="icon-menu" aria-hidden="true"></span>
+  <span class="sr-only">Toggle Sidebar</span>
+</button>
+<button class="sidebar-button night-mode-toggle">
+  <span class="icon-theme" aria-hidden="true"></span>
+  <span class="sr-only">Toggle Theme</span>
+</button>
+<section class="sidebar">
+
+  
+  <a href="api-reference.html" class="sidebar-projectLink">
+    <div class="sidebar-projectDetails">
+      <h1 class="sidebar-projectName">
+        snowplow_tracker
+      </h1>
+      <h2 class="sidebar-projectVersion">
+        v0.1.0
+      </h2>
+    </div>
+    
+  </a>
+
+  <form class="sidebar-search" action="search.html">
+    <button type="submit" class="search-button">
+      <span class="icon-search" aria-hidden="true"></span>
+    </button>
+    <input name="q" type="text" id="search-list" class="search-input" placeholder="Search" aria-label="Search" autocomplete="off" />
+  </form>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list" href="#full-list">Pages</a></li>
+
+    
+      <li><a id="modules-list" href="#full-list">Modules</a></li>
+    
+
+    
+      <li><a id="exceptions-list" href="#full-list">Exceptions</a></li>
+    
+
+    
+  </ul>
+  <div class="gradient"></div>
+  <ul id="full-list" class="sidebar-fullList"></ul>
+</section>
+
+<section class="content">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+
+<h1>
+  <small class="visible-xs">snowplow_tracker v0.1.0</small>
+  API Reference
+</h1>
+
+
+  <section class="details-list">
+    <h2 id="modules" class="section-heading">
+  <a href="#modules" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Modules
+</h2>
+
+    <div class="summary">
+      <div class="summary-row">
+  <div class="summary-signature"><a href="SnowplowTracker.html">SnowplowTracker</a></div>
+  
+    <div class="summary-synopsis"><p>Module is used to track events and send them to snowplow</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="SnowplowTracker.Constants.html">SnowplowTracker.Constants</a></div>
+  
+    <div class="summary-synopsis"><p>This module contains the constants used to construct the event payload and send
+them to the collector</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="SnowplowTracker.Emitter.html">SnowplowTracker.Emitter</a></div>
+  
+    <div class="summary-synopsis"><p>This module is responsible for sending events to the
+snowplow collector</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="SnowplowTracker.Emitters.Helper.html">SnowplowTracker.Emitters.Helper</a></div>
+  
+    <div class="summary-synopsis"><p>This module contains helper functions to format and sanitize the data
+necessary for the emitter module</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="SnowplowTracker.Events.Behaviour.html">SnowplowTracker.Events.Behaviour</a></div>
+  
+    <div class="summary-synopsis"><p>This module implements the behaviour for all events</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="SnowplowTracker.Events.EcommerceTransaction.html">SnowplowTracker.Events.EcommerceTransaction</a></div>
+  
+    <div class="summary-synopsis"><p>This module implements the Ecommerce Transaction event</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="SnowplowTracker.Events.EcommerceTransactionItem.html">SnowplowTracker.Events.EcommerceTransactionItem</a></div>
+  
+    <div class="summary-synopsis"><p>This module implement the Ecommerce Trasaction Item event</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="SnowplowTracker.Events.Helper.html">SnowplowTracker.Events.Helper</a></div>
+  
+    <div class="summary-synopsis"><p>This module contains the implementations of
+function used to set the default values in the payload</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="SnowplowTracker.Events.PageView.html">SnowplowTracker.Events.PageView</a></div>
+  
+    <div class="summary-synopsis"><p>This module implements the PageView event</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="SnowplowTracker.Events.ScreenView.html">SnowplowTracker.Events.ScreenView</a></div>
+  
+    <div class="summary-synopsis"><p>This module implements the ScreenView event</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="SnowplowTracker.Events.SelfDescribing.html">SnowplowTracker.Events.SelfDescribing</a></div>
+  
+    <div class="summary-synopsis"><p>This module implements the Self Describing event</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="SnowplowTracker.Events.Structured.html">SnowplowTracker.Events.Structured</a></div>
+  
+    <div class="summary-synopsis"><p>This module implements the Structured event</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="SnowplowTracker.Events.Timing.html">SnowplowTracker.Events.Timing</a></div>
+  
+    <div class="summary-synopsis"><p>This module implements the Timing event</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="SnowplowTracker.Helper.html">SnowplowTracker.Helper</a></div>
+  
+    <div class="summary-synopsis"><p>Module containing helper function for SnowplowTracker</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="SnowplowTracker.Payload.html">SnowplowTracker.Payload</a></div>
+  
+    <div class="summary-synopsis"><p>Represents the data structure used to store event information</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="SnowplowTracker.Request.html">SnowplowTracker.Request</a></div>
+  
+    <div class="summary-synopsis"><p>This module provides function to perform HTTP calls to the collector
+endpoint</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="SnowplowTracker.Response.html">SnowplowTracker.Response</a></div>
+  
+    <div class="summary-synopsis"><p>This module is used to parse the response received after sending the
+event to the collector</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="SnowplowTracker.SelfDescribingJson.html">SnowplowTracker.SelfDescribingJson</a></div>
+  
+    <div class="summary-synopsis"><p>This module implements the structure for the Self Describing JSON
+type</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="SnowplowTracker.Subject.html">SnowplowTracker.Subject</a></div>
+  
+    <div class="summary-synopsis"><p>This module describes the structure for the Subject which stores meta
+information about the event</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="SnowplowTracker.Subjects.Helper.html">SnowplowTracker.Subjects.Helper</a></div>
+  
+    <div class="summary-synopsis"><p>This module contains helper functions to support ‘Subject’ type creation</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="SnowplowTracker.Tracker.html">SnowplowTracker.Tracker</a></div>
+  
+    <div class="summary-synopsis"><p>This module defines the structure for the Tracker</p>
+</div>
+  
+</div>
+
+    </div>
+  </section>
+
+
+
+  <section class="details-list">
+    <h2 id="exceptions" class="section-heading">
+  <a href="#exceptions" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Exceptions
+</h2>
+
+    <div class="summary">
+      <div class="summary-row">
+  <div class="summary-signature"><a href="SnowplowTracker.Errors.ApiError.html">SnowplowTracker.Errors.ApiError</a></div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="SnowplowTracker.Errors.InvalidParam.html">SnowplowTracker.Errors.InvalidParam</a></div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="SnowplowTracker.Errors.NotImplemented.html">SnowplowTracker.Errors.NotImplemented</a></div>
+  
+</div>
+
+    </div>
+  </section>
+
+
+
+
+      <footer class="footer">
+        <p>
+          <span class="line">
+            Built using
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.18.3),
+          </span>
+          <span class="line">
+            designed by
+            <a href="https://twitter.com/dignifiedquire" target="_blank" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+            </span>
+        </p>
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+  <script src="dist/app-9bd040e5e5.js"></script>
+  
+  
+  
+  
+  </body>
+</html>
+
