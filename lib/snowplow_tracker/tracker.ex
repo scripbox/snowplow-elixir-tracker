@@ -2,7 +2,7 @@ defmodule SnowplowTracker.Tracker do
   @moduledoc """
   This module defines the structure for the Tracker.
   """
-  alias SnowplowTracker.{Payload, Emitter, Errors, Subject, Events}
+  alias SnowplowTracker.{Emitter, Errors, Subject}
 
   alias __MODULE__
 
