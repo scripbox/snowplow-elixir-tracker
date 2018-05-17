@@ -28,7 +28,7 @@ defmodule SnowplowTracker.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:httpoison, "~> 0.13.0"},
+      {:httpoison, "~> 1.1"},
       {:jason, "~> 1.0"},
       {:uuid, "~> 1.1"},
       {:ex_doc, "~> 0.11", only: :dev},
