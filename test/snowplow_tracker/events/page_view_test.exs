@@ -4,7 +4,20 @@ defmodule SnowplowTracker.Events.PageViewTest do
   alias SnowplowTracker.{Events, Errors, Payload}
 
   setup_all do
-    {:ok, event: %Events.PageView{page_url: "test.com"}}
+    {:ok, event: Events.PageView.new(%{page_url: "test.com"})}
+  end
+
+  describe "new/1" do
+    test "returns a struct containing the appropriate fields", context do
+      event = context[:event]
+      assert event.page_url == "test.com"
+    end
+
+    test "raises an error on invalid input parameter" do
+      assert_raise Errors.InvalidParam, ~r/^.*expected map.*$/, fn ->
+        Events.PageView.new("test")
+      end
+    end
   end
 
   describe "validate/1" do

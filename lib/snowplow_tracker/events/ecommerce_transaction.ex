@@ -32,15 +32,15 @@ defmodule SnowplowTracker.Events.EcommerceTransaction do
     # Optional
     :currency,
     # Optional
-    items: [],
+    :items,
     # Optional
-    timestamp: EventsHelper.generate_timestamp(),
+    :timestamp,
     # Optional
-    event_id: EventsHelper.generate_uuid(),
+    :event_id,
     # Optional
-    true_timestamp: EventsHelper.generate_timestamp(),
+    :true_timestamp,
     # Optional
-    contexts: []
+    :contexts
   ]
 
   defstruct @keys
@@ -63,6 +63,30 @@ defmodule SnowplowTracker.Events.EcommerceTransaction do
         }
 
   # Public API
+
+  @spec new(map() | any()) :: t() | no_return()
+  def new(data) when is_map(data) do
+    %__MODULE__{
+      order_id: Map.get(data, :order_id),
+      total_value: Map.get(data, :total_value),
+      affiliation: Map.get(data, :affiliation),
+      tax_value: Map.get(data, :tax_value),
+      shipping: Map.get(data, :shipping),
+      city: Map.get(data, :city),
+      state: Map.get(data, :state),
+      country: Map.get(data, :country),
+      currency: Map.get(data, :currency),
+      items: Map.get(data, :items),
+      timestamp: Map.get(data, :timestamp, EventsHelper.generate_timestamp()),
+      event_id: Map.get(data, :event_id, EventsHelper.generate_uuid()),
+      true_timestamp: Map.get(data, :true_timestamp, EventsHelper.generate_timestamp()),
+      contexts: Map.get(data, :contexts, [])
+    }
+  end
+
+  def new(data) do
+    raise Errors.InvalidParam, "expected map, received #{data}"
+  end
 
   @spec validate(t()) :: t() | no_return()
   def validate(%EcommerceTransaction{order_id: ""}) do

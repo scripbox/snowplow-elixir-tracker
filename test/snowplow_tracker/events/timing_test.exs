@@ -5,6 +5,27 @@ defmodule SnowplowTracker.Events.TimingTest do
   alias SnowplowTracker.Events.Timing
   alias SnowplowTracker.Events.SelfDescribing
 
+  describe "new/1" do
+    test "returns a struct containing the appropriate fields" do
+      event =
+        Timing.new(%{
+          category: "electronics",
+          variable: "page_view",
+          timing: 10
+        })
+
+      assert event.category == "electronics"
+      assert event.variable == "page_view"
+      assert event.timing == 10
+    end
+
+    test "raises an error on invalid input parameter" do
+      assert_raise Errors.InvalidParam, ~r/^.*expected map.*$/, fn ->
+        Timing.new("test")
+      end
+    end
+  end
+
   describe "validate/1" do
     test "raises an error if the category attribute is empty" do
       assert_raise Errors.InvalidParam, ~r/^.*category cannot be blank.*$/, fn ->

@@ -3,6 +3,25 @@ defmodule SnowplowTracker.Events.EcommerceTransactionTest do
 
   alias SnowplowTracker.{Errors, Events, Payload}
 
+  describe "new/1" do
+    test "returns a struct containing the appropriate fields" do
+      event =
+        Events.EcommerceTransaction.new(%{
+          order_id: "ORDER_001",
+          total_value: 2301.23
+        })
+
+      assert event.order_id == "ORDER_001"
+      assert event.total_value == 2301.23
+    end
+
+    test "raises an error on invalid input parameter" do
+      assert_raise Errors.InvalidParam, ~r/^.*expected map.*$/, fn ->
+        Events.EcommerceTransaction.new("test")
+      end
+    end
+  end
+
   describe "validate/1" do
     test "raises error if order_id is blank" do
       assert_raise Errors.InvalidParam, ~r/^.*order_id cannot be blank.*$/, fn ->

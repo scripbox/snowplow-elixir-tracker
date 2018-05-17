@@ -3,7 +3,7 @@ defmodule SnowplowTracker.Events.SelfDescribing do
   This module implements the Self Describing event.
   """
 
-  alias SnowplowTracker.{Constants, Payload, SelfDescribingJson}
+  alias SnowplowTracker.{Errors, Constants, Payload, SelfDescribingJson}
   alias SnowplowTracker.Events.Helper, as: EventsHelper
 
   alias __MODULE__
@@ -12,15 +12,15 @@ defmodule SnowplowTracker.Events.SelfDescribing do
 
   @keys [
     # Required
-    event: %SelfDescribingJson{},
+    :event,
     # Optional
-    timestamp: EventsHelper.generate_timestamp(),
+    :timestamp,
     # Optional
-    event_id: EventsHelper.generate_uuid(),
+    :event_id,
     # Optional
-    true_timestamp: EventsHelper.generate_timestamp(),
+    :true_timestamp,
     # Optional
-    contexts: []
+    :contexts
   ]
 
   defstruct @keys
@@ -32,6 +32,21 @@ defmodule SnowplowTracker.Events.SelfDescribing do
           true_timestamp: integer(),
           contexts: list(SelfDescribingJson.t())
         }
+
+  @spec new(map() | any()) :: t() | no_return()
+  def new(data) when is_map(data) do
+    %__MODULE__{
+      event: Map.get(data, :event, %SelfDescribingJson{}),
+      timestamp: Map.get(data, :timestamp, EventsHelper.generate_timestamp()),
+      event_id: Map.get(data, :event_id, EventsHelper.generate_uuid()),
+      true_timestamp: Map.get(data, :true_timestamp, EventsHelper.generate_timestamp()),
+      contexts: Map.get(data, :contexts, [])
+    }
+  end
+
+  def new(data) do
+    raise Errors.InvalidParam, "expected map, received #{data}"
+  end
 
   @spec validate(t()) :: t()
   def validate(%SelfDescribing{} = event), do: event

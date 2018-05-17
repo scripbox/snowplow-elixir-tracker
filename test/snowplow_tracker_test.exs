@@ -25,7 +25,7 @@ defmodule SnowplowTrackerTest do
 
   describe "track_page_view/1" do
     test "checks if the validate and get methods are called", context do
-      payload = %Events.PageView{page_url: "test.com"}
+      payload = Events.PageView.new(%{page_url: "test.com"})
 
       with_request_mock do
         SnowplowTracker.track_page_view(
@@ -42,7 +42,7 @@ defmodule SnowplowTrackerTest do
 
   describe "track_structured_event/1" do
     test "checks if the validate and get methods are called", context do
-      payload = %Events.Structured{category: "pv", action: "click"}
+      payload = Events.Structured.new(%{category: "pv", action: "click"})
 
       with_request_mock do
         SnowplowTracker.track_struct_event(
@@ -59,7 +59,7 @@ defmodule SnowplowTrackerTest do
 
   describe "track_self_describing_event/1" do
     test "checks if the validate and get methods are called", context do
-      payload = %Events.SelfDescribing{event: %SelfDescribingJson{}}
+      payload = Events.SelfDescribing.new(%{event: %SelfDescribingJson{}})
 
       with_request_mock do
         SnowplowTracker.track_self_describing_event(
@@ -76,7 +76,7 @@ defmodule SnowplowTrackerTest do
 
   describe "track_screen_view/1" do
     test "checks if the validate and get methods are called", context do
-      payload = %Events.ScreenView{}
+      payload = Events.ScreenView.new(%{})
 
       with_request_mock do
         SnowplowTracker.track_screen_view(
@@ -93,7 +93,7 @@ defmodule SnowplowTrackerTest do
 
   describe "track_timing/1" do
     test "checks if the validate and get methods are called", context do
-      payload = %Events.Timing{category: "pv", variable: "click", timing: 10}
+      payload = Events.Timing.new(%{category: "pv", variable: "click", timing: 10})
 
       with_request_mock do
         SnowplowTracker.track_timing(
@@ -110,7 +110,7 @@ defmodule SnowplowTrackerTest do
 
   describe "track_ecommerce_transaction/1" do
     test "checks if the validate and get methods are called", context do
-      payload = %Events.EcommerceTransaction{order_id: "1E501", total_value: 300.0}
+      payload = Events.EcommerceTransaction.new(%{order_id: "1E501", total_value: 300.0})
 
       with_request_mock do
         SnowplowTracker.track_ecommerce_transaction(
@@ -127,7 +127,7 @@ defmodule SnowplowTrackerTest do
 
   describe "track_ecommerce_transaction_item/1" do
     test "checks if the validate and get methods are called", context do
-      payload = %Events.EcommerceTransactionItem{sku: "phone", price: 300.0, quantity: 1}
+      payload = Events.EcommerceTransactionItem.new(%{sku: "phone", price: 300.0, quantity: 1})
 
       with_request_mock do
         SnowplowTracker.track_ecommerce_transaction_item(

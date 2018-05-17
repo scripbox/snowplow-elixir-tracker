@@ -3,6 +3,25 @@ defmodule SnowplowTracker.Events.StructuredTest do
 
   alias SnowplowTracker.{Events, Errors, Payload}
 
+  describe "new/1" do
+    test "returns a struct containing the appropriate fields" do
+      event =
+        Events.Structured.new(%{
+          category: "electronics",
+          action: "page_view"
+        })
+
+      assert event.category == "electronics"
+      assert event.action == "page_view"
+    end
+
+    test "raises an error on invalid input parameter" do
+      assert_raise Errors.InvalidParam, ~r/^.*expected map.*$/, fn ->
+        Events.Structured.new("test")
+      end
+    end
+  end
+
   describe "validate/1" do
     test "return invalid_param if category is nil" do
       assert_raise Errors.InvalidParam, ~r/^.*category cannot be blank.*$/, fn ->

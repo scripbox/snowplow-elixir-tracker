@@ -5,7 +5,7 @@ defmodule SnowplowTracker.Events.PageView do
   @behaviour SnowplowTracker.Events.Behaviour
 
   alias SnowplowTracker.{Errors, Constants, Payload, SelfDescribingJson}
-  alias SnowplowTracker.Events.Helper
+  alias SnowplowTracker.Events.Helper, as: EventsHelper
 
   alias __MODULE__
 
@@ -19,13 +19,13 @@ defmodule SnowplowTracker.Events.PageView do
     # Optional
     :referrer,
     # Optional
-    timestamp: Helper.generate_timestamp(),
+    :timestamp,
     # Optional
-    event_id: Helper.generate_uuid(),
+    :event_id,
     # Optional
-    true_timestamp: Helper.generate_timestamp(),
+    :true_timestamp,
     # Optional
-    contexts: []
+    :contexts
   ]
 
   @type t :: %__MODULE__{
@@ -39,6 +39,22 @@ defmodule SnowplowTracker.Events.PageView do
         }
 
   defstruct @keys
+
+  @spec new(map() | any()) :: t() | no_return()
+  def new(data) when is_map(data) do
+    %__MODULE__{
+      page_url: Map.get(data, :page_url),
+      page_title: Map.get(data, :page_title),
+      timestamp: Map.get(data, :timestamp, EventsHelper.generate_timestamp()),
+      event_id: Map.get(data, :event_id, EventsHelper.generate_uuid()),
+      true_timestamp: Map.get(data, :true_timestamp, EventsHelper.generate_timestamp()),
+      contexts: Map.get(data, :contexts, [])
+    }
+  end
+
+  def new(data) do
+    raise Errors.InvalidParam, "expected map, received #{data}"
+  end
 
   @spec validate(t()) :: t() | no_return()
   def validate(%PageView{page_url: url}) when is_nil(url) or url == "" do
@@ -54,9 +70,9 @@ defmodule SnowplowTracker.Events.PageView do
       Constants.page_url() => event.page_url,
       Constants.page_title() => event.page_title,
       Constants.page_refr() => event.referrer,
-      Constants.timestamp() => Helper.to_string(event.timestamp),
+      Constants.timestamp() => EventsHelper.to_string(event.timestamp),
       Constants.eid() => event.event_id,
-      Constants.true_timestamp() => Helper.to_string(event.true_timestamp)
+      Constants.true_timestamp() => EventsHelper.to_string(event.true_timestamp)
     }
     |> (&Payload.add_map(%Payload{}, &1)).()
   end

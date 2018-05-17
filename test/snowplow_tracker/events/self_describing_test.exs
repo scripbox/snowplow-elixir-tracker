@@ -1,7 +1,24 @@
 defmodule SnowplowTracker.Events.SelfDescribingTest do
   use ExUnit.Case
 
-  alias SnowplowTracker.{Events, SelfDescribingJson, Payload}
+  alias SnowplowTracker.{Errors, Events, SelfDescribingJson, Payload}
+
+  describe "new/1" do
+    test "returns a struct containing the appropriate fields" do
+      event =
+        Events.SelfDescribing.new(%{
+          event: %SelfDescribingJson{}
+        })
+
+      assert event.event == %SelfDescribingJson{}
+    end
+
+    test "raises an error on invalid input parameter" do
+      assert_raise Errors.InvalidParam, ~r/^.*expected map.*$/, fn ->
+        Events.SelfDescribing.new("test")
+      end
+    end
+  end
 
   describe "validate/1" do
     test "returns the event if it is valid" do

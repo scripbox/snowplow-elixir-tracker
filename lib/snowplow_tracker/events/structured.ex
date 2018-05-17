@@ -10,8 +10,6 @@ defmodule SnowplowTracker.Events.Structured do
 
   alias __MODULE__
 
-  @enforce_keys [:category, :action]
-
   @keys [
     # Required
     :category,
@@ -22,15 +20,15 @@ defmodule SnowplowTracker.Events.Structured do
     # Optional
     :property,
     # Optional
-    value: 0.0,
+    :value,
     # Optional
-    timestamp: EventsHelper.generate_timestamp(),
+    :timestamp,
     # Optional
-    event_id: EventsHelper.generate_uuid(),
+    :event_id,
     # Optional
-    true_timestamp: EventsHelper.generate_timestamp(),
+    :true_timestamp,
     # Optional
-    contexts: []
+    :contexts
   ]
 
   defstruct @keys
@@ -46,6 +44,25 @@ defmodule SnowplowTracker.Events.Structured do
           true_timestamp: integer(),
           contexts: list(SelfDescribingJson.t())
         }
+
+  @spec new(map() | any()) :: t() | no_return()
+  def new(data) when is_map(data) do
+    %__MODULE__{
+      category: Map.get(data, :category),
+      action: Map.get(data, :action),
+      label: Map.get(data, :label),
+      property: Map.get(data, :property),
+      value: Map.get(data, :value, 0.0),
+      timestamp: Map.get(data, :timestamp, EventsHelper.generate_timestamp()),
+      event_id: Map.get(data, :event_id, EventsHelper.generate_uuid()),
+      true_timestamp: Map.get(data, :true_timestamp, EventsHelper.generate_timestamp()),
+      contexts: Map.get(data, :contexts, [])
+    }
+  end
+
+  def new(data) do
+    raise Errors.InvalidParam, "expected map, received #{data}"
+  end
 
   @spec validate(t()) :: t() | no_return()
   def validate(%Structured{category: ""}) do

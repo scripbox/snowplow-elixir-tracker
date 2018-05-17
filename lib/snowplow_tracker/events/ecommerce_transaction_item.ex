@@ -20,9 +20,9 @@ defmodule SnowplowTracker.Events.EcommerceTransactionItem do
     # Optional
     :category,
     # Optional
-    event_id: EventsHelper.generate_uuid(),
+    :event_id,
     # Optional
-    contexts: []
+    :contexts
   ]
 
   defstruct @keys
@@ -36,6 +36,23 @@ defmodule SnowplowTracker.Events.EcommerceTransactionItem do
           event_id: String.t(),
           contexts: list(SelfDescribingJson.t())
         }
+
+  @spec new(map() | any()) :: t() | no_return()
+  def new(data) when is_map(data) do
+    %__MODULE__{
+      sku: Map.get(data, :sku),
+      price: Map.get(data, :price),
+      quantity: Map.get(data, :quantity),
+      name: Map.get(data, :name),
+      category: Map.get(data, :category),
+      event_id: Map.get(data, :event_id, EventsHelper.generate_uuid()),
+      contexts: Map.get(data, :contexts, [])
+    }
+  end
+
+  def new(data) do
+    raise Errors.InvalidParam, "expected map, received #{data}"
+  end
 
   @spec validate(t()) :: t() | no_return()
   def validate(%EcommerceTransactionItem{sku: ""}) do

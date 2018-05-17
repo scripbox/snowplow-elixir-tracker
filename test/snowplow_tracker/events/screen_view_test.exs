@@ -3,6 +3,23 @@ defmodule SnowplowTracker.Events.ScreenViewTest do
 
   alias SnowplowTracker.{Errors, Events, SelfDescribingJson}
 
+  describe "new/1" do
+    test "returns a struct containing the appropriate fields" do
+      event =
+        Events.ScreenView.new(%{
+          name: "screen_view"
+        })
+
+      assert event.name == "screen_view"
+    end
+
+    test "raises an error on invalid input parameter" do
+      assert_raise Errors.InvalidParam, ~r/^.*expected map.*$/, fn ->
+        Events.ScreenView.new("test")
+      end
+    end
+  end
+
   describe "validate/1" do
     test "raises error if name and id are blank" do
       assert_raise Errors.InvalidParam, ~r/^.*both cannot be blank.*$/, fn ->

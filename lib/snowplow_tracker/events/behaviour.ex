@@ -5,6 +5,12 @@ defmodule SnowplowTracker.Events.Behaviour do
   alias SnowplowTracker.Payload
 
   @doc """
+  This function accepts a map and returns a struct containing the event
+  properties else it raises an appropriate error.
+  """
+  @callback new(map() | any()) :: struct() | no_return()
+
+  @doc """
   This function accepts a struct() object and validates the it's fields. If it is valid,
   it returns the object else it raises an appropriate error.
   """

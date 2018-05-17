@@ -23,13 +23,13 @@ defmodule SnowplowTracker.Events.Timing do
     # Optional
     :label,
     # Optional
-    timestamp: EventsHelper.generate_timestamp(),
+    :timestamp,
     # Optional
-    event_id: EventsHelper.generate_uuid(),
+    :event_id,
     # Optional
-    true_timestamp: EventsHelper.generate_timestamp(),
+    :true_timestamp,
     # Optional
-    contexts: []
+    :contexts
   ]
 
   defstruct @keys
@@ -44,6 +44,24 @@ defmodule SnowplowTracker.Events.Timing do
           true_timestamp: integer(),
           contexts: list(%SelfDescribingJson{})
         }
+
+  @spec new(map()) :: t() | no_return()
+  def new(data) when is_map(data) do
+    %__MODULE__{
+      category: Map.get(data, :category),
+      variable: Map.get(data, :variable),
+      timing: Map.get(data, :timing),
+      label: Map.get(data, :label),
+      timestamp: Map.get(data, :timestamp, EventsHelper.generate_timestamp()),
+      event_id: Map.get(data, :event_id, EventsHelper.generate_uuid()),
+      true_timestamp: Map.get(data, :true_timestamp, EventsHelper.generate_timestamp()),
+      contexts: Map.get(data, :contexts, [])
+    }
+  end
+
+  def new(data) do
+    raise Errors.InvalidParam, "expected map, received #{data}"
+  end
 
   @spec validate(t()) :: t() | no_return()
   def validate(%Timing{category: ""}) do

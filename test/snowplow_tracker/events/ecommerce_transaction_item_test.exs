@@ -3,6 +3,27 @@ defmodule SnowplowTracker.Events.EcommerceTransactionItemTest do
 
   alias SnowplowTracker.{Events, Errors, Payload}
 
+  describe "new/1" do
+    test "returns a struct containing the appropriate fields" do
+      event =
+        Events.EcommerceTransactionItem.new(%{
+          sku: "TV",
+          price: 2301.23,
+          quantity: 10
+        })
+
+      assert event.sku == "TV"
+      assert event.price == 2301.23
+      assert event.quantity == 10
+    end
+
+    test "raises an error on invalid input parameter" do
+      assert_raise Errors.InvalidParam, ~r/^.*expected map.*$/, fn ->
+        Events.EcommerceTransactionItem.new("test")
+      end
+    end
+  end
+
   describe "validate/1" do
     test "raises and error if sku, price or quantity is missing" do
       assert_raise Errors.InvalidParam, ~r/^.*sku cannot be empty.*$/, fn ->
