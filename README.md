@@ -1,5 +1,7 @@
 # SnowplowTracker
 
+[![codecov](https://codecov.io/gh/scripbox/snowplow-elixir-tracker/branch/master/graph/badge.svg)](https://codecov.io/gh/scripbox/snowplow-elixir-tracker) ![Hex.pm](https://img.shields.io/hexpm/dt/snowplow_tracker.svg)
+
 Snowplow event tracker for elixir. Add analytics to your elixir/phoenix apps.
 
 ## Installation
@@ -22,4 +24,11 @@ end
 | ![i1] [techdocs-image]          | ![i2] [setup-image]       | ![i3] [roadmap-image]   | ![i4] [contributing-image]        |
 | **[Technical Docs] [techdocs]** | **[Setup Guide] [setup]** | **[Roadmap] [roadmap]** | **[Contributing] [contributing]** |
 
-
+[techdocs-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/techdocs.png
+[setup-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/setup.png
+[roadmap-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/roadmap.png
+[contributing-image]:  https://d3i6fms1cm1j0i.cloudfront.net/github/images/contributing.png
+[techdocs]: https://img.shields.io/hexpm/dt/plug.svg
+[setup]: https://github.com/scripbox/snowplow-elixir-tracker/tree/feature/add_ci#installation
+[roadmap]: https://github.com/snowplow/snowplow/wiki/Product-roadmap
+[contributing]: https://github.com/snowplow/snowplow/wiki/Contributing

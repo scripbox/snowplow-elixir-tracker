@@ -14,7 +14,11 @@ defmodule SnowplowTracker.MixProject do
         "coveralls.post": :test,
         "coveralls.html": :test
       ],
-      deps: deps()
+      description: description(),
+      package: package(),
+      deps: deps(),
+      name: "snowplow_tracker",
+      source_url: "https://github.com/scripbox/snowplow-elixir-tracker"
     ]
   end
 
@@ -34,6 +38,18 @@ defmodule SnowplowTracker.MixProject do
       {:ex_doc, "~> 0.11", only: :dev},
       {:mock, "~> 0.3.0", only: :test},
       {:excoveralls, "~> 0.8", only: :test}
+    ]
+  end
+
+  def description() do
+    "Snowplow event tracker for elixir. Add analytics to all your elixir apps"
+  end
+
+  defp package() do
+    [
+      maintainers: ["Shubham Gupta"],
+      licenses: ["Apache 2.0"],
+      links: %{"GitHub" => "https://github.com/scripbox/snowplow-elixir-tracker"}
     ]
   end
 end
