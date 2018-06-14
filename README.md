@@ -29,7 +29,7 @@ end
 [setup-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/setup.png
 [roadmap-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/roadmap.png
 [contributing-image]:  https://d3i6fms1cm1j0i.cloudfront.net/github/images/contributing.png
-[techdocs]: https://img.shields.io/hexpm/dt/plug.svg
-[setup]: https://github.com/scripbox/snowplow-elixir-tracker/tree/feature/add_ci#installation
+[techdocs]: https://hexdocs.pm/snowplow_tracker/
+[setup]: https://github.com/scripbox/snowplow-elixir-tracker/tree/master/#installation
 [roadmap]: https://github.com/snowplow/snowplow/wiki/Product-roadmap
 [contributing]: https://github.com/snowplow/snowplow/wiki/Contributing
