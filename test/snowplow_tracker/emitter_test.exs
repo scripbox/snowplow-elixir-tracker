@@ -7,7 +7,7 @@ defmodule SnowplowTracker.EmitterTest do
 
   defmacro with_request_mock(block) do
     quote do
-      with_mock Request, get: fn url -> RequestMock.get(url) end do
+      with_mock Request, get: fn (url, opts) -> RequestMock.get(url, opts) end do
         unquote(block)
       end
     end
