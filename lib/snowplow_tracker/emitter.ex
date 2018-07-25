@@ -40,7 +40,7 @@ defmodule SnowplowTracker.Emitter do
         emitter.request_type
       )
 
-    with {:ok, response} <- Request.get(url),
+    with {:ok, response} <- Request.get(url, [recv_timeout: 50000]),
          {:ok, body} <- Response.parse(response) do
       {:ok, body}
     else
