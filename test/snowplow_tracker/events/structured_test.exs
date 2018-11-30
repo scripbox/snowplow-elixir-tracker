@@ -48,7 +48,7 @@ defmodule SnowplowTracker.Events.StructuredTest do
     end
 
     test "returns the event if it is valid" do
-      event = %Events.Structured{category: "animal", action: "pet"}
+      event = Events.Structured.new(%{category: "animal", action: "pet"})
       assert event == Events.Structured.validate(event)
     end
   end

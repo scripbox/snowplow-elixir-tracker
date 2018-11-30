@@ -81,6 +81,14 @@ defmodule SnowplowTracker.Events.Structured do
     raise Errors.InvalidParam, "action cannot be blank"
   end
 
+  def validate(%Structured{value: ""}) do
+    raise Errors.InvalidParam, "value cannot be blank"
+  end
+
+  def validate(%Structured{value: nil}) do
+    raise Errors.InvalidParam, "value cannot be blank"
+  end
+
   def validate(%Structured{} = event), do: event
 
   @spec get(t()) :: Payload.t()
