@@ -10,11 +10,11 @@ use Mix.Config
 
 # You can configure your application as:
 #
-#     config :snowplow_elixir_tracker, key: :value
+#     config :snowplow_tracker, key: :value
 #
 # and access this configuration in your application as:
 #
-#     Application.get_env(:snowplow_elixir_tracker, :key)
+#     Application.get_env(:snowplow_tracker, :key)
 #
 # You can also configure a 3rd-party app:
 #
@@ -28,3 +28,9 @@ use Mix.Config
 # here (which is why it is important to import them last).
 #
 #     import_config "#{Mix.env}.exs"
+
+config :snowplow_tracker,
+  default_options: [
+    timeout: 5000,
+    recv_timeout: 2000
+  ]

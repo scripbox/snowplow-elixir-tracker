@@ -40,12 +40,16 @@ defmodule SnowplowTracker.Emitter do
         emitter.request_type
       )
 
-    with {:ok, response} <- Request.get(url, [recv_timeout: 50000]),
+    with {:ok, response} <- Request.get(url, [], default_options()),
          {:ok, body} <- Response.parse(response) do
       {:ok, body}
     else
       {:error, error} ->
         raise Errors.ApiError, Kernel.inspect(error)
     end
+  end
+
+  defp default_options do
+    Application.get_env(:snowplow_tracker, :default_options) || []
   end
 end
