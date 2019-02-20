@@ -47,6 +47,18 @@ defmodule SnowplowTracker.Events.StructuredTest do
       end
     end
 
+    test "return invalid_param if value is nil" do
+      assert_raise Errors.InvalidParam, ~r/^.*value cannot be blank.*$/, fn ->
+        %Events.Structured{category: "test", action: "test", value: nil}
+        |> Events.Structured.validate()
+      end
+
+      assert_raise Errors.InvalidParam, ~r/^.*value cannot be blank.*$/, fn ->
+        %Events.Structured{category: "test", action: "test", value: ""}
+        |> Events.Structured.validate()
+      end
+    end
+
     test "returns the event if it is valid" do
       event = Events.Structured.new(%{category: "animal", action: "pet"})
       assert event == Events.Structured.validate(event)

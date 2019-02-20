@@ -1,19 +1,13 @@
 defmodule SnowplowTracker.MixProject do
+
   use Mix.Project
 
   def project do
     [
       app: :snowplow_tracker,
-      version: "0.1.1",
-      elixir: "~> 1.6",
+      version: "1.0.0",
+      elixir: "~> 1.8.1",
       start_permanent: Mix.env() == :prod,
-      test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: [
-        coveralls: :test,
-        "coveralls.detail": :test,
-        "coveralls.post": :test,
-        "coveralls.html": :test
-      ],
       description: description(),
       package: package(),
       deps: deps(),
@@ -36,8 +30,7 @@ defmodule SnowplowTracker.MixProject do
       {:jason, "~> 1.0"},
       {:uuid, "~> 1.1"},
       {:ex_doc, "~> 0.11", only: :dev},
-      {:mock, "~> 0.3.0", only: :test},
-      {:excoveralls, "~> 0.8", only: :test}
+      {:mock, "~> 0.3.0", only: :test}
     ]
   end
 
