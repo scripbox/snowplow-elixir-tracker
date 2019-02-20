@@ -34,8 +34,7 @@ defmodule SnowplowTracker.Events.SelfDescribingTest do
         "dtm" => "123",
         "eid" => "test_event",
         "ttm" => "123",
-        "ue_pr" =>
-          "\"{\\\"data\\\":\\\"{\\\\\\\"data\\\\\\\":\\\\\\\"test_data\\\\\\\",\\\\\\\"schema\\\\\\\":\\\\\\\"test\\\\\\\"}\\\",\\\"schema\\\":\\\"iglu:com.snowplowanalytics.snowplow/unstruct_event/jsonschema/1-0-0\\\"}\""
+        "ue_pr" => "{\"data\":\"test_data\",\"schema\":\"test\"}"
       }
 
       event = %Events.SelfDescribing{
@@ -59,8 +58,7 @@ defmodule SnowplowTracker.Events.SelfDescribingTest do
         "dtm" => "123",
         "eid" => "test_event",
         "ttm" => "123",
-        "ue_px" =>
-          "IntcImRhdGFcIjpcIntcXFwiZGF0YVxcXCI6XFxcInRlc3RfZGF0YVxcXCIsXFxcInNjaGVtYVxcXCI6XFxcInRlc3RcXFwifVwiLFwic2NoZW1hXCI6XCJpZ2x1OmNvbS5zbm93cGxvd2FuYWx5dGljcy5zbm93cGxvdy91bnN0cnVjdF9ldmVudC9qc29uc2NoZW1hLzEtMC0wXCJ9Ig=="
+        "ue_px" => "eyJkYXRhIjoidGVzdF9kYXRhIiwic2NoZW1hIjoidGVzdCJ9"
       }
 
       event = %Events.SelfDescribing{
