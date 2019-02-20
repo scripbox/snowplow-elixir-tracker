@@ -1,8 +1,8 @@
-defmodule SnowplowTracker.Payloads.HelperTest do
+defmodule SnowplowTracker.Support.Payloads.HelperTest do
   use ExUnit.Case
 
   alias SnowplowTracker.Errors
-  alias SnowplowTracker.Payloads.Helper
+  alias SnowplowTracker.Support.Payloads.Helper
 
   describe "sanitize/1" do
     test "raises an error if the input is empty" do

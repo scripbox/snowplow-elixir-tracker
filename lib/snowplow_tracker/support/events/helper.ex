@@ -1,4 +1,4 @@
-defmodule SnowplowTracker.Events.Helper do
+defmodule SnowplowTracker.Support.Events.Helper do
   @moduledoc """
   This module contains the implementations of
   function used to set the default values in the payload.

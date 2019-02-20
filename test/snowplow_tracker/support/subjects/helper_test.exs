@@ -1,8 +1,8 @@
-defmodule SnowplowTracker.Subjects.HelperTest do
+defmodule SnowplowTracker.Support.Subjects.HelperTest do
   use ExUnit.Case
 
   alias SnowplowTracker.Errors
-  alias SnowplowTracker.Subjects.Helper
+  alias SnowplowTracker.Support.Subjects.Helper
 
   describe "validate_platform/1" do
     test "raises an error if the platform is invalid" do

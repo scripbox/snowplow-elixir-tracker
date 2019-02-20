@@ -6,7 +6,7 @@ defmodule SnowplowTracker.Emitter do
   alias __MODULE__
 
   alias SnowplowTracker.{Payload, Request, Response, Errors}
-  alias SnowplowTracker.Emitters.Helper
+  alias SnowplowTracker.Support.Emitters.Helper
 
   @keys [
     collector_uri: "localhost",

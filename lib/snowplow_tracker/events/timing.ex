@@ -7,7 +7,7 @@ defmodule SnowplowTracker.Events.Timing do
 
   alias SnowplowTracker.{Errors, Constants, SelfDescribingJson}
   alias SnowplowTracker.Events.SelfDescribing
-  alias SnowplowTracker.Events.Helper, as: EventsHelper
+  alias SnowplowTracker.Support.Events.Helper, as: EventsHelper
 
   alias __MODULE__
 

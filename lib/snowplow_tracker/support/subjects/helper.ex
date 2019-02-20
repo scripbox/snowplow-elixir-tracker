@@ -1,4 +1,4 @@
-defmodule SnowplowTracker.Subjects.Helper do
+defmodule SnowplowTracker.Support.Subjects.Helper do
   @moduledoc """
   This module contains helper functions to support 'Subject' type creation.
   """
@@ -23,7 +23,7 @@ defmodule SnowplowTracker.Subjects.Helper do
 
   ## Examples
 
-      iex> SnowplowTracker.Subjects.Helper.validate_platform("srv")
+      iex> SnowplowTracker.Support.Subjects.Helper.validate_platform("srv")
       :ok
 
   """

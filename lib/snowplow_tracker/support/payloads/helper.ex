@@ -1,4 +1,4 @@
-defmodule SnowplowTracker.Payloads.Helper do
+defmodule SnowplowTracker.Support.Payloads.Helper do
   @moduledoc false
 
   alias SnowplowTracker.Errors.InvalidParam

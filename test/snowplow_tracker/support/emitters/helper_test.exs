@@ -1,8 +1,8 @@
-defmodule SnowplowTracker.Emitters.HelperTest do
+defmodule SnowplowTracker.Support.Emitters.HelperTest do
   use ExUnit.Case
 
   alias SnowplowTracker.Errors
-  alias SnowplowTracker.Emitters.Helper
+  alias SnowplowTracker.Support.Emitters.Helper
 
   describe "generate_endpoint/5" do
     test "generates url with parameters from payload" do

@@ -6,7 +6,7 @@ defmodule SnowplowTracker.Payload do
 
   alias __MODULE__
 
-  alias SnowplowTracker.Payloads.Helper
+  alias SnowplowTracker.Support.Payloads.Helper
 
   @keys [pairs: %{}]
 

@@ -1,7 +1,7 @@
-defmodule Snowplow.Events.HelperTest do
+defmodule Snowplow.Support.Events.HelperTest do
   use ExUnit.Case
 
-  alias SnowplowTracker.Events.Helper
+  alias SnowplowTracker.Support.Events.Helper
   alias SnowplowTracker.OsMock
 
   describe "generate_uuid/0" do

@@ -5,7 +5,7 @@ defmodule SnowplowTracker.Events.PageView do
   @behaviour SnowplowTracker.Events.Behaviour
 
   alias SnowplowTracker.{Errors, Constants, Payload, SelfDescribingJson}
-  alias SnowplowTracker.Events.Helper, as: EventsHelper
+  alias SnowplowTracker.Support.Events.Helper, as: EventsHelper
 
   alias __MODULE__
 

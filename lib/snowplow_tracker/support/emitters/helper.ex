@@ -1,4 +1,4 @@
-defmodule SnowplowTracker.Emitters.Helper do
+defmodule SnowplowTracker.Support.Emitters.Helper do
   @moduledoc """
   This module contains helper functions to format and sanitize the data
   necessary for the emitter module

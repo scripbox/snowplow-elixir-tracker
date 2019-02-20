@@ -5,7 +5,7 @@ defmodule SnowplowTracker.Subject do
   """
   alias SnowplowTracker.{Payload, Constants}
 
-  alias SnowplowTracker.Subjects.Helper
+  alias SnowplowTracker.Support.Subjects.Helper
 
   alias __MODULE__
 
