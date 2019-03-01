@@ -53,11 +53,6 @@ defmodule SnowplowTracker.Events.SelfDescribing do
 
   @spec get(%SelfDescribing{}, boolean()) :: Payload.t()
   def get(%SelfDescribing{} = sd_event, encode) do
-    sdj = %SelfDescribingJson{
-      schema: Constants.schema_unstruct_event(),
-      data: SelfDescribingJson.get(sd_event.event)
-    }
-
     %{
       Constants.event() => Constants.event_unstructured(),
       Constants.timestamp() => EventsHelper.to_string(sd_event.timestamp),
@@ -66,7 +61,7 @@ defmodule SnowplowTracker.Events.SelfDescribing do
     }
     |> (&Payload.add_map(%Payload{}, &1)).()
     |> Payload.add_json(
-      SelfDescribingJson.get(sdj),
+      sd_event.event,
       Constants.unstructured_encoded(),
       Constants.unstructured(),
       encode
