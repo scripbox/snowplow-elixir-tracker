@@ -5,7 +5,7 @@ defmodule SnowplowTracker.Emitter do
   """
   alias __MODULE__
 
-  alias SnowplowTracker.{Payload, Request, Response, Errors}
+  alias SnowplowTracker.{Payload, Response, Errors}
   alias SnowplowTracker.Emitters.Helper
 
   @keys [
@@ -40,7 +40,7 @@ defmodule SnowplowTracker.Emitter do
         emitter.request_type
       )
 
-    with {:ok, response} <- Request.get(url, [], default_options()),
+    with {:ok, response} <- Helper.make_request(url, [], default_options()),
          {:ok, body} <- Response.parse(response) do
       {:ok, body}
     else

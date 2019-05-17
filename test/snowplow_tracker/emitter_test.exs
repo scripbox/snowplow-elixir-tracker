@@ -29,7 +29,8 @@ defmodule SnowplowTracker.EmitterTest do
   describe "input/2" do
     test "sends a GET request to the collector with the parameters", context do
       with_request_mock do
-        Payload.add(%Payload{}, :test, "value")
+        %Payload{}
+        |> Payload.add(:test, "value")
         |> Emitter.input(context[:emitter])
 
         assert_receive "request sent"

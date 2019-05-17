@@ -4,7 +4,7 @@ defmodule SnowplowTracker.Emitters.Helper do
   necessary for the emitter module
   """
 
-  alias SnowplowTracker.{Errors, Constants}
+  alias SnowplowTracker.{Request, Errors, Constants}
 
   @get_method "GET"
 
@@ -38,5 +38,19 @@ defmodule SnowplowTracker.Emitters.Helper do
   @doc false
   defp protocol_path do
     Constants.get_protocol_path()
+  end
+
+  def make_request(url, _params, _options, retry_count) when retry_count == 0 do
+    {:error, "Failed after retry. URL: #{url}"}
+  end
+
+  def make_request(url, params, options, retry_count \\ 10) do
+    try do
+      {:ok, response} = Request.get(url, params, options)
+      {:ok, response}
+    rescue
+      _error ->
+        make_request(url, params, options, retry_count - 1)
+    end
   end
 end
