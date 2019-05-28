@@ -4,9 +4,10 @@ defmodule SnowplowTracker.Emitters.Helper do
   necessary for the emitter module
   """
 
-  alias SnowplowTracker.{Errors, Constants}
+  alias SnowplowTracker.Constants
 
   @get_method "GET"
+  @post_method "POST"
 
   # Public API
 
@@ -14,29 +15,43 @@ defmodule SnowplowTracker.Emitters.Helper do
   This function is used to generate the endpoint with the query parameters
   which are used to send events to the collector.
   """
-  def generate_endpoint(protocol, uri, nil = _port, payload, @get_method) do
-    do_generate_endpoint(protocol, uri, "", payload)
+  def generate_endpoint(protocol, uri, nil = _port, payload, request_method) do
+    do_generate_endpoint(
+      protocol, 
+      uri, 
+      "", 
+      payload, 
+      request_method
+    )
   end
 
-  def generate_endpoint(protocol, uri, port, payload, @get_method) do
-    do_generate_endpoint(protocol, uri, ":#{port}", payload)
-  end
-
-  def generate_endpoint(_protocol, _uri, _port, _payload, invalid_method) do
-    message = "#{invalid_method} method not implemented"
-    raise Errors.NotImplemented, message
+  def generate_endpoint(protocol, uri, port, payload, request_method) do
+    do_generate_endpoint(
+      protocol, 
+      uri, 
+      ":#{port}", 
+      payload, 
+      request_method
+    )
   end
 
   # Private API
 
   @doc false
-  defp do_generate_endpoint(protocol, uri, port, payload) do
+  defp do_generate_endpoint(protocol, uri, port, payload, @get_method) do
     params = URI.encode_query(payload)
-    "#{protocol}://#{uri}#{port}/#{protocol_path()}?#{params}"
+    path = Constants.get_protocol_path()
+    "#{protocol}://#{uri}#{port}/#{path}?#{params}"
   end
 
-  @doc false
-  defp protocol_path do
-    Constants.get_protocol_path()
+  defp do_generate_endpoint(protocol, uri, port, payload, @post_method) do
+    params = URI.encode_query(payload)
+    {vendor, version, ctype} = {
+      Constants.post_protocol_vendor(),
+      Constants.post_protocol_version(),
+      Constants.post_content_type()
+    }
+    "#{protocol}://#{uri}#{port}/#{vendor}?#{version}"
   end
+
 end

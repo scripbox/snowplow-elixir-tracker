@@ -30,7 +30,9 @@ defmodule SnowplowTracker.Emitter do
   def new(uri), do: struct(%Emitter{}, collector_uri: uri)
 
   @spec input(Payload.t(), Emitter.t(), struct()) :: {:ok, String.t()} | no_return()
-  def input(%Payload{} = payload, %Emitter{} = emitter, module \\ Helper) do
+  def input(_payload, _emitter, module \\ Helper)
+
+  def input(%Payload{} = payload, %Emitter{request_type: "GET"} = emitter, module) do
     url =
       module.generate_endpoint(
         emitter.protocol,
@@ -47,6 +49,10 @@ defmodule SnowplowTracker.Emitter do
       {:error, error} ->
         raise Errors.ApiError, Kernel.inspect(error)
     end
+  end
+
+  def input(%Payload{} = payload, %Emitter{request_type: "POST"} = emitter, module) do
+    {:ok}
   end
 
   defp default_options do
