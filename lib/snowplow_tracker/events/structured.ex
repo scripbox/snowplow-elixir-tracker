@@ -52,7 +52,7 @@ defmodule SnowplowTracker.Events.Structured do
       action: Map.get(data, :action),
       label: Map.get(data, :label),
       property: Map.get(data, :property),
-      value: Map.get(data, :value, 0.0),
+      value: Map.get(data, :value, nil),
       timestamp: Map.get(data, :timestamp, EventsHelper.generate_timestamp()),
       event_id: Map.get(data, :event_id, EventsHelper.generate_uuid()),
       true_timestamp: Map.get(data, :true_timestamp, EventsHelper.generate_timestamp()),
@@ -81,12 +81,12 @@ defmodule SnowplowTracker.Events.Structured do
     raise Errors.InvalidParam, "action cannot be blank"
   end
 
-  def validate(%Structured{value: ""}) do
-    raise Errors.InvalidParam, "value cannot be blank"
+  def validate(%Structured{value: value}) when is_binary(value) do
+    raise Errors.InvalidParam, "value cannot be a string"
   end
 
-  def validate(%Structured{value: nil}) do
-    raise Errors.InvalidParam, "value cannot be blank"
+  def validate(%Structured{value: value}) when is_integer(value) do
+    raise Errors.InvalidParam, "value cannot be a integer"
   end
 
   def validate(%Structured{} = event), do: event
