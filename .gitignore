@@ -21,3 +21,6 @@ erl_crash.dump
 
 # Ignore package tarball (built via "mix hex.build").
 snowplow_elixir_tracker-*.tar
+
+# Ignore elixir tables created using PersistentEts
+*.tab

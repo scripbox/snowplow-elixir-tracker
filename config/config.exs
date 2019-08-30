@@ -33,4 +33,5 @@ config :snowplow_tracker,
   default_options: [
     timeout: 5000,
     recv_timeout: 2000
-  ]
+  ],
+  table_name: :snowplow_events

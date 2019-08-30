@@ -52,7 +52,7 @@ defmodule SnowplowTracker.Events.Structured do
       action: Map.get(data, :action),
       label: Map.get(data, :label),
       property: Map.get(data, :property),
-      value: Map.get(data, :value, nil),
+      value: Map.get(data, :value, 0.0),
       timestamp: Map.get(data, :timestamp, EventsHelper.generate_timestamp()),
       event_id: Map.get(data, :event_id, EventsHelper.generate_uuid()),
       true_timestamp: Map.get(data, :true_timestamp, EventsHelper.generate_timestamp()),

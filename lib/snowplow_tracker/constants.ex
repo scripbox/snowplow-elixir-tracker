@@ -12,6 +12,8 @@ defmodule SnowplowTracker.Constants do
   @post_protocol_vendor "com.snowplowanalytics.snowplow"
   @post_protocol_version "tp2"
   @post_content_type "application/json; charset=utf-8"
+  @post_wrapper_bytes 88
+  @post_stm_bytes 22
   @get_protocol_path "i"
   @schema_payload_data "iglu:com.snowplowanalytics.snowplow/payload_data/jsonschema/1-0-4"
   @schema_contexts "iglu:com.snowplowanalytics.snowplow/contexts/jsonschema/1-0-1"
@@ -85,6 +87,8 @@ defmodule SnowplowTracker.Constants do
   def post_protocol_vendor, do: @post_protocol_vendor
   def post_protocol_version, do: @post_protocol_version
   def post_content_type, do: @post_content_type
+  def post_wrapper_bytes, do: @post_wrapper_bytes
+  def post_stm_bytes, do: @post_stm_bytes
 
   # GET Requests
   def get_protocol_path, do: @get_protocol_path

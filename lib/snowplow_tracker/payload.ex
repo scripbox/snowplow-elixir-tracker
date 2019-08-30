@@ -18,7 +18,6 @@ defmodule SnowplowTracker.Payload do
           pairs: map()
         }
 
-
   def new(payload) do
     struct(__MODULE__, pairs: payload["pairs"])
   end
@@ -105,6 +104,6 @@ defmodule SnowplowTracker.Payload do
   def decode!(payload) do
     payload
     |> Jason.decode!()
-    |> __MODULE__.new(response)
+    |> __MODULE__.new()
   end
 end
