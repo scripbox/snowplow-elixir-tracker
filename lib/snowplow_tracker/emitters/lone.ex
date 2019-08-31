@@ -7,7 +7,7 @@ defmodule SnowplowTracker.Emitters.Lone do
 
   @options Application.get_env(:snowplow_tracker, :default_options) || []
 
-  def create(payload, url) do
+  def create(_payload, url) do
     with {:ok, response} <- Request.get(url, [], @options),
          {:ok, body} <- Response.parse(response) do
       {:ok, body}

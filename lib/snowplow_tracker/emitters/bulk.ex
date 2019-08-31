@@ -7,12 +7,19 @@ defmodule SnowplowTracker.Emitters.Bulk do
   use GenServer
 
   alias SnowplowTracker.Emitters.Processor
+  @table Application.get_env(:snowplow_tracker, :table)
 
-  def start_link() do
+  def start_link(_args) do
     GenServer.start_link(__MODULE__, nil)
   end
 
   def init(_) do
+    PersistentEts.new(
+      @table,
+      "#{Atom.to_string(@table)}.tab",
+      [:named_table]
+    )
+
     schedule_initial_job()
     {:ok, nil}
   end
