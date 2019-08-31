@@ -21,3 +21,11 @@ defmodule SnowplowTracker.Errors.InvalidParam do
 
   def message(%__MODULE__{reason: reason}), do: "SnowplowTracker::InvalidParam - #{reason}"
 end
+
+defmodule SnowplowTracker.Errors.LockError do
+  defexception [:reason]
+
+  def exception(reason), do: %__MODULE__{reason: reason}
+
+  def message(%__MODULE__{reason: reason}), do: "SnowplowTracker::LockError- #{reason}"
+end

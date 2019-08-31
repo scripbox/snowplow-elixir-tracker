@@ -1,13 +1,12 @@
 defmodule SnowplowTracker.Emitters.Bulk do
   @moduledoc """
-  This module defines the emitter that will process the GET requests. 
+  This module defines the genserver that will be responsible for scheduling the jobs to 
+  fetch events from ETS
   """
 
   use GenServer
 
-  alias :ets, as: Ets
-  alias SnowplowTracker.{Request, Response, Errors}
-  @table Application.get_env(:snowplow_tracker, :table_name)
+  alias SnowplowTracker.Emitters.Processor
 
   def start_link() do
     GenServer.start_link(__MODULE__, nil)
@@ -19,9 +18,7 @@ defmodule SnowplowTracker.Emitters.Bulk do
   end
 
   def handle_info(:perform, state) do
-    # Perform job
-    {keys, payloads, urls} = Ets.match(@table, {:"$1", :"$2", :"$3"})
-    # Create post payload
+    Processor.send()
     schedule_next_job()
     {:noreply, state}
   end
@@ -36,14 +33,7 @@ defmodule SnowplowTracker.Emitters.Bulk do
     Process.send_after(self(), :perform, 60_000)
   end
 
-  def create(payload, url, _options) do
-    eid = Map.get(payload, :eid)
-
-    Ets.insert(
-      @table,
-      {eid, payload, url}
-    )
-
-    {:ok, "Insert successful"}
+  def create(payload, url) do
+    Processor.insert(payload, url)
   end
 end

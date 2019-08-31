@@ -5,8 +5,10 @@ defmodule SnowplowTracker.Emitters.Lone do
 
   alias SnowplowTracker.{Request, Response, Errors}
 
-  def create(payload, url, options) do
-    with {:ok, response} <- Request.get(url, [], options),
+  @options Application.get_env(:snowplow_tracker, :default_options) || []
+
+  def create(payload, url) do
+    with {:ok, response} <- Request.get(url, [], @options),
          {:ok, body} <- Response.parse(response) do
       {:ok, body}
     else

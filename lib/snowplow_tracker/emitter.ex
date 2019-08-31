@@ -40,7 +40,7 @@ defmodule SnowplowTracker.Emitter do
         emitter.request_type
       )
 
-    Lone.create(payload, url, default_options())
+    Lone.create(payload, url)
   end
 
   def input(%Payload{} = payload, %Emitter{request_type: "POST"} = emitter, module) do
@@ -53,10 +53,6 @@ defmodule SnowplowTracker.Emitter do
         emitter.request_type
       )
 
-    Bulk.create(payload, url, default_options())
-  end
-
-  defp default_options do
-    Application.get_env(:snowplow_tracker, :default_options) || []
+    Bulk.create(payload, url)
   end
 end
