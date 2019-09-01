@@ -6,20 +6,15 @@ defmodule SnowplowTracker.Emitters.Bulk do
 
   use GenServer
 
-  alias SnowplowTracker.Emitters.Processor
-  @table Application.get_env(:snowplow_tracker, :table)
+  require Logger
+
+  alias SnowplowTracker.Emitters.{Processor, Cache}
 
   def start_link(_args) do
-    GenServer.start_link(__MODULE__, nil)
+    GenServer.start_link(__MODULE__, nil, name: __MODULE__)
   end
 
   def init(_) do
-    PersistentEts.new(
-      @table,
-      "#{Atom.to_string(@table)}.tab",
-      [:named_table]
-    )
-
     schedule_initial_job()
     {:ok, nil}
   end
@@ -30,17 +25,20 @@ defmodule SnowplowTracker.Emitters.Bulk do
     {:noreply, state}
   end
 
+  def handle_call({:create, payload, url}, _from, state) do
+    {:ok, msg} = Processor.insert(payload, url)
+    Logger.log(:debug, "#{__MODULE__}: #{msg}")
+    {:reply, :ok, state}
+  end
+
   defp schedule_initial_job() do
     # In 5 seconds
+    Cache.init()
     Process.send_after(self(), :perform, 5_000)
   end
 
   defp schedule_next_job() do
     # In 60 seconds
     Process.send_after(self(), :perform, 60_000)
-  end
-
-  def create(payload, url) do
-    Processor.insert(payload, url)
   end
 end
