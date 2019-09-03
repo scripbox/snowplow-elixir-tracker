@@ -1,7 +1,6 @@
 defmodule SnowplowTracker.Emitters.HelperTest do
   use ExUnit.Case
 
-  alias SnowplowTracker.Errors
   alias SnowplowTracker.Emitters.Helper
 
   describe "generate_endpoint/5" do
@@ -31,16 +30,17 @@ defmodule SnowplowTracker.Emitters.HelperTest do
       assert String.contains?(url, "http://localhost:8000/i?test=value")
     end
 
-    test "raises error when POST method is called" do
-      assert_raise Errors.NotImplemented, fn ->
+    test "Checks the endpoint for POST request" do
+      url =
         Helper.generate_endpoint(
           "http",
           "localhost",
-          nil,
+          8000,
           %{},
           "POST"
         )
-      end
+
+      assert String.contains?(url, "http://localhost:8000/com.snowplowanalytics.snowplow?tp2")
     end
   end
 end

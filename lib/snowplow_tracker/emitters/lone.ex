@@ -4,7 +4,6 @@ defmodule SnowplowTracker.Emitters.Lone do
   """
 
   alias SnowplowTracker.{Request, Response, Errors}
-
   @options Application.get_env(:snowplow_tracker, :default_options) || []
 
   def create(_payload, url) do

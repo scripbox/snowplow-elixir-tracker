@@ -28,7 +28,7 @@ defmodule SnowplowTracker.Emitters.Bulk do
   def handle_call({:create, payload, url}, _from, state) do
     {:ok, msg} = Processor.insert(payload, url)
     Logger.log(:debug, "#{__MODULE__}: #{msg}")
-    {:reply, :ok, state}
+    {:reply, {:ok, :success}, state}
   end
 
   defp schedule_initial_job() do
