@@ -17,15 +17,6 @@ defmodule SnowplowTracker.Emitters.Processor do
     do_send(response)
   end
 
-  def insert(payload, url) do
-    eid =
-      payload
-      |> Payload.get()
-      |> Map.fetch!("eid")
-
-    Cache.insert({eid, payload, url})
-  end
-
   # Private API
 
   defp do_send([{_lock, _state}] = _response) do
@@ -33,14 +24,12 @@ defmodule SnowplowTracker.Emitters.Processor do
   end
 
   defp do_send(_) do
-    {:ok, _msg} = Cache.set_lock()
-
-    process_events(Cache.match())
-
-    Cache.release_lock()
+    Cache.set_lock()
+    |> process_events(Cache.match())
+    |> Cache.release_lock()
   end
 
-  defp process_events({:ok, data}) when length(data) >= 1 do
+  defp process_events({:ok, _msg}, {:ok, data}) when length(data) >= 1 do
     [_, _, url] = data |> List.first()
 
     data
@@ -48,19 +37,22 @@ defmodule SnowplowTracker.Emitters.Processor do
     |> Enum.map(&create_payload/1)
     |> Enum.map(&send_request(&1, url))
 
-    Enum.each(data, fn [key, _, _] -> Cache.delete_key(key) end)
     {:ok, :success}
   end
 
-  defp process_events({:ok, data}) when length(data) == 0 do
+  defp process_events({:ok, _msg}, {:ok, data}) when length(data) == 0 do
     Logger.log(:debug, "#{__MODULE__}: No data available to process!")
     {:ok, :success}
   end
 
+  defp process_events({:error, _msg}, {:ok, _data}) do
+    Logger.log(:debug, "#{__MODULE__}: Skipping event processing!")
+  end
+
   defp create_payload(events) when length(events) >= 1 do
-    payloads =
-      Enum.map(events, fn [_eid, payload, _url] ->
-        Payload.get(payload)
+    {payloads, keys} =
+      Enum.map(events, fn [eid, payload, _url] ->
+        {Payload.get(payload), eid}
       end)
 
     {:ok, encoded_payload} =
@@ -69,14 +61,15 @@ defmodule SnowplowTracker.Emitters.Processor do
         data: payloads
       })
 
-    {:ok, encoded_payload}
+    {:ok, encoded_payload, keys}
   end
 
   defp create_payload(_events), do: :ok
 
-  defp send_request({:ok, payload_chunk}, url) do
+  defp send_request({:ok, payload_chunk, keys}, url) do
     with {:ok, response} <- Request.post(url, payload_chunk, @headers, @options),
          {:ok, body} <- Response.parse(response) do
+      remove_processed_events(keys)
       {:ok, body}
     else
       {:error, error} ->
@@ -84,7 +77,11 @@ defmodule SnowplowTracker.Emitters.Processor do
     end
   end
 
-  defp send_request({_status, _payload_chunk}, _url) do
+  defp send_request({_status, _payload_chunk, _keys}, _url) do
     raise Errors.EncodingError, "Failed to create JSON of payload chunk"
+  end
+
+  defp remove_processed_events(keys) do
+    Enum.each(keys, fn [key, _, _] -> Cache.delete_key(key) end)
   end
 end

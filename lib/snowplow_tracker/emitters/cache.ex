@@ -39,14 +39,22 @@ defmodule SnowplowTracker.Emitters.Cache do
     }
   end
 
-  def release_lock() do
-    delete_key(@lock)
-  end
+  def release_lock({:ok, _msg}), do: delete_key(@lock)
+
+  def release_lock({:error, _}), do: :ok
 
   def set_lock() do
-    Ets.insert(@table, {@lock, true})
-    Logger.log(:debug, "#{__MODULE__}: Lock set successfully!")
-    {:ok, :success}
+    response = Ets.insert(@table, {@lock, true})
+
+    case response do
+      true ->
+        Logger.log(:debug, "#{__MODULE__}: Lock set successfully!")
+        {:ok, :success}
+
+      _ ->
+        Logger.log(:debug, "#{__MODULE__}: Falied to set lock!")
+        {:error, :failed}
+    end
   end
 
   def delete_key(key) do

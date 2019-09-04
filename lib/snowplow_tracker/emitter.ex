@@ -53,6 +53,6 @@ defmodule SnowplowTracker.Emitter do
         emitter.request_type
       )
 
-    GenServer.call(Bulk, {:create, payload, url}, 60_000)
+    Bulk.create(payload, url)
   end
 end
