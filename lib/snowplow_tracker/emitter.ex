@@ -5,7 +5,7 @@ defmodule SnowplowTracker.Emitter do
   """
   alias __MODULE__
   alias SnowplowTracker.Payload
-  alias SnowplowTracker.Emitters.{Bulk, Lone, Helper}
+  alias SnowplowTracker.Emitters.{Server, Bulk, Unary, Helper}
 
   @keys [
     collector_uri: "localhost",
@@ -40,7 +40,7 @@ defmodule SnowplowTracker.Emitter do
         emitter.request_type
       )
 
-    Lone.create(payload, url)
+    Unary.create(payload, url)
   end
 
   def input(%Payload{} = payload, %Emitter{request_type: "POST"} = emitter, module) do

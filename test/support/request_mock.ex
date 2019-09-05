@@ -6,7 +6,7 @@ defmodule SnowplowTracker.RequestMock do
     {:ok, %HTTPoison.Response{status_code: 200, body: "response"}}
   end
 
-  def post(_url, _headers, _options) do
+  def post(_url, _body, _headers, _options) do
     send(self(), "POST request sent")
     {:ok, %HTTPoison.Response{status_code: 200, body: "response"}}
   end

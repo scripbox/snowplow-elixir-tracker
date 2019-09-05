@@ -1,4 +1,4 @@
-defmodule SnowplowTracker.Emitters.Lone do
+defmodule SnowplowTracker.Emitters.Unary do
   @moduledoc """
   This module defines the emitter that will process the GET requests. 
   """

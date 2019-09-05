@@ -4,10 +4,8 @@ defmodule SnowplowTracker.Emitters.Bulk do
   POST requests. 
   """
 
-  alias SnowplowTracker.Emitters.Cache
   alias SnowplowTracker.Payload
-
-  @options Application.get_env(:snowplow_tracker, :default_options) || []
+  alias SnowplowTracker.Emitters.Server
 
   def create(payload, url) do
     eid =
@@ -15,6 +13,6 @@ defmodule SnowplowTracker.Emitters.Bulk do
       |> Payload.get()
       |> Map.fetch!("eid")
 
-    Cache.insert({eid, payload, url})
+    Server.insert({eid, payload, url})
   end
 end

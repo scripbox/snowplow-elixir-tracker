@@ -50,15 +50,17 @@ defmodule SnowplowTracker.Emitters.Processor do
   end
 
   defp create_payload(events) when length(events) >= 1 do
-    {payloads, keys} =
+    event_data =
       Enum.map(events, fn [eid, payload, _url] ->
         {Payload.get(payload), eid}
       end)
 
+    keys = Enum.map(event_data, fn {_, k} -> k end)
+
     {:ok, encoded_payload} =
       Jason.encode(%{
         schema: Constants.schema_payload_data(),
-        data: payloads
+        data: Enum.map(event_data, fn {x, _} -> x end)
       })
 
     {:ok, encoded_payload, keys}
@@ -82,6 +84,6 @@ defmodule SnowplowTracker.Emitters.Processor do
   end
 
   defp remove_processed_events(keys) do
-    Enum.each(keys, fn [key, _, _] -> Cache.delete_key(key) end)
+    Enum.each(keys, fn key -> Cache.delete_key(key) end)
   end
 end

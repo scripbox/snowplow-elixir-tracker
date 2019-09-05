@@ -4,7 +4,7 @@ defmodule SnowplowTracker.MixProject do
   def project do
     [
       app: :snowplow_tracker,
-      version: "0.1.1",
+      version: "1.0.0",
       elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
       test_coverage: [tool: ExCoveralls],
