@@ -11,22 +11,14 @@ defmodule SnowplowTracker.Emitters.Cache do
   @lock "lock"
 
   def init(table \\ @table) do
-    response =
-      PersistentEts.new(
-        table,
-        "#{Atom.to_string(table)}.tab",
-        [:named_table]
-      )
+    PersistentEts.new(
+      table,
+      "#{Atom.to_string(table)}.tab",
+      [:named_table]
+    )
 
-    case response do
-      {:error, _} ->
-        Logger.log(:debug, "Failed to create table #{table}!")
-        {:error, :failed}
-
-      _ ->
-        Logger.log(:debug, "Table #{table} created successfully!")
-        {:ok, :success}
-    end
+    Logger.log(:debug, "Table #{table} created successfully!")
+    {:ok, :success}
   end
 
   def insert(payload, table \\ @table) do
@@ -48,7 +40,9 @@ defmodule SnowplowTracker.Emitters.Cache do
     }
   end
 
+  # coveralls-ignore-start
   def release_lock(payload, table \\ @table)
+  # coveralls-ignore-stop
 
   def release_lock({:ok, _msg}, table), do: delete_key(@lock, table)
 

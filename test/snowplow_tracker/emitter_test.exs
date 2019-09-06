@@ -14,15 +14,6 @@ defmodule SnowplowTracker.EmitterTest do
     end
   end
 
-  defmacro with_request_mock_post(block) do
-    quote do
-      with_mock Request,
-        post: fn url, body, headers, opts -> RequestMock.post(url, body, headers, opts) end do
-        unquote(block)
-      end
-    end
-  end
-
   setup_all do
     {
       :ok,
@@ -57,18 +48,17 @@ defmodule SnowplowTracker.EmitterTest do
       end
     end
 
-    # test "sends a POST request to the collector with the parameters", context do
-    #  #with_request_mock_post do
-    #  Server.start_link
-    #  emitter = Map.put(context[:emitter], :request_type, "POST")
+    test "sends a POST request to the collector with the parameters", context do
+      Server.start_link(nil)
+      emitter = Map.put(context[:emitter], :request_type, "POST")
 
-    #  response =
-    #  %Payload{}
-    #  |> Payload.add("eid", "value")
-    #  |> Emitter.input(emitter)
+      response =
+        %Payload{}
+        |> Payload.add("eid", "value")
+        |> Emitter.input(emitter)
 
-    #  assert response == {:ok, :success}
-    #  #end
-    # end
+      assert response == {:ok, :success}
+      Server.delete_table()
+    end
   end
 end

@@ -51,6 +51,18 @@ defmodule SnowplowTracker.Events.StructuredTest do
       event = Events.Structured.new(%{category: "animal", action: "pet"})
       assert event == Events.Structured.validate(event)
     end
+
+    test "return invalid_param if value is incorrect" do
+      assert_raise Errors.InvalidParam, ~r/^.*value cannot be a string*$/, fn ->
+        %Events.Structured{category: "test", action: "test", value: "invalid"}
+        |> Events.Structured.validate()
+      end
+
+      assert_raise Errors.InvalidParam, ~r/^.*value cannot be a integer*$/, fn ->
+        %Events.Structured{category: "test", action: "fest", value: 1}
+        |> Events.Structured.validate()
+      end
+    end
   end
 
   describe "get/1" do

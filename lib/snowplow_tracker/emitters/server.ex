@@ -18,15 +18,20 @@ defmodule SnowplowTracker.Emitters.Server do
     )
   end
 
-  def init(_) do
+  def init(args) do
     Cache.init()
     schedule_initial_job()
     {:ok, nil}
   end
 
   def handle_call({:insert, payload}, _from, state) do
-    Cache.insert(payload)
-    {:reply, state, state}
+    response = Cache.insert(payload)
+    {:reply, response, state}
+  end
+
+  def handle_call(delete, _from, state) do
+    response = Cache.delete_table()
+    {:reply, response, state}
   end
 
   def handle_info(:perform, state) do
@@ -36,6 +41,11 @@ defmodule SnowplowTracker.Emitters.Server do
   end
 
   def insert(ets_payload) do
+    GenServer.call(__MODULE__, {:insert, ets_payload})
+  end
+
+  def delete_table() do
+    GenServer.call(__MODULE__, :delete)
   end
 
   defp schedule_initial_job() do

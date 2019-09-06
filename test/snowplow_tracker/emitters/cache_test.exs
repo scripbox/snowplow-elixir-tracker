@@ -1,7 +1,7 @@
 defmodule SnowplowTracker.Emitters.CacheTest do
   use ExUnit.Case
 
-  alias SnowplowTracker.Emitters.{Cache, Server}
+  alias SnowplowTracker.Emitters.Cache
 
   @table :snowplow_events_test
 
