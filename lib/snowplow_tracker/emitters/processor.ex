@@ -81,7 +81,7 @@ defmodule SnowplowTracker.Emitters.Processor do
     end
   end
 
-  defp send_request({_status, _payload_chunk, _keys}, _url) do
+  defp send_request({_status, _payload_chunk, _keys}, _url, _table) do
     raise Errors.EncodingError, "Failed to create JSON of payload chunk"
   end
 

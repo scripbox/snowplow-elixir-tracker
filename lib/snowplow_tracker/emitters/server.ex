@@ -18,7 +18,7 @@ defmodule SnowplowTracker.Emitters.Server do
     )
   end
 
-  def init(args) do
+  def init(_args) do
     Cache.init()
     schedule_initial_job()
     {:ok, nil}
@@ -29,7 +29,7 @@ defmodule SnowplowTracker.Emitters.Server do
     {:reply, response, state}
   end
 
-  def handle_call(delete, _from, state) do
+  def handle_call(:delete, _from, state) do
     response = Cache.delete_table()
     {:reply, response, state}
   end
