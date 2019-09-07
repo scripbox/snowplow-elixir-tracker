@@ -68,5 +68,6 @@ defmodule SnowplowTracker.Emitters.Cache do
 
   def delete_table(table \\ @table) do
     Ets.delete(table)
+    File.rm("#{Atom.to_string(table)}.tab")
   end
 end

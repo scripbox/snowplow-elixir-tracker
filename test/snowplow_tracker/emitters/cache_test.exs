@@ -108,7 +108,6 @@ defmodule SnowplowTracker.Emitters.CacheTest do
     test "deletes ETS table" do
       Cache.init(@table)
       Cache.delete_table(@table)
-      File.rm!("#{Atom.to_string(@table)}.tab")
       refute(Enum.member?(:ets.all(), @table))
     end
   end
