@@ -63,25 +63,25 @@ defmodule SnowplowTracker.Emitters.CacheTest do
   #    end
   #  end
   #
-  #  describe "release_lock/1" do
-  #    test "deletes the lock in the ETS table" do
-  #      Cache.init(@table)
-  #      Cache.insert({"lock", "true"}, @table)
-  #      response = Cache.release_lock({:ok, "test"}, @table)
-  #      assert response == {:ok, :success}
-  #      Cache.delete_table(@table)
-  #    end
-  #
-  #    test "does not delete lock if error in parent step" do
-  #      Cache.init(@table)
-  #      Cache.insert({"lock", "true"}, @table)
-  #      Cache.release_lock({:error, "test"}, @table)
-  #      response = Cache.check_lock(@table)
-  #      assert response == {:ok, [{"lock", "true"}]}
-  #      Cache.delete_table(@table)
-  #    end
-  #  end
-  #
+  describe "release_lock/1" do
+    test "deletes the lock in the ETS table" do
+      Cache.init(@table)
+      Cache.insert({"lock", "true"}, @table)
+      response = Cache.release_lock({:ok, "test"}, @table)
+      assert response == {:ok, :success}
+      Cache.delete_table(@table)
+    end
+  
+    test "does not delete lock if error in parent step" do
+      Cache.init(@table)
+      Cache.insert({"lock", "true"}, @table)
+      Cache.release_lock({:error, "test"}, @table)
+      response = Cache.check_lock(@table)
+      assert response == {:ok, [{"lock", "true"}]}
+      Cache.delete_table(@table)
+    end
+  end
+
   describe "set_lock/1" do
     test "sets lock in the ETS table" do
       Cache.init(@table)
