@@ -1,29 +1,29 @@
 defmodule SnowplowTracker.Emitters.CacheTest do
   use ExUnit.Case
 
-  #  alias SnowplowTracker.Emitters.Cache
-  #
-  #  @table :snowplow_events_test
-  #
-  #  setup_all do
-  #    try do
-  #      Cache.delete_table(@table)
-  #    rescue
-  #      _ -> :ok
-  #    end
-  #    on_exit(fn -> Cache.delete_table(@table) end)
-  #    :ok
-  #  end
-  #
-  #  describe "init/1" do
-  #    test "creates ets table" do
-  #      Cache.init(@table)
-  #
-  #      assert(Enum.member?(:ets.all(), @table))
-  #
-  #      Cache.delete_table(@table)
-  #    end
-  #  end
+  alias SnowplowTracker.Emitters.Cache
+  
+  @table :snowplow_events_test
+  
+  setup_all do
+    try do
+      Cache.delete_table(@table)
+    rescue
+      _ -> :ok
+    end
+    on_exit(fn -> Cache.delete_table(@table) end)
+    :ok
+  end
+  
+  describe "init/1" do
+    test "creates ets table" do
+      Cache.init(@table)
+  
+      assert(Enum.member?(:ets.all(), @table))
+  
+      Cache.delete_table(@table)
+    end
+  end
   #
   #  describe "insert/1" do
   #    test "inserts payload into ets table" do
