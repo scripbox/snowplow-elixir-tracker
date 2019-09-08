@@ -82,19 +82,19 @@ defmodule SnowplowTracker.Emitters.CacheTest do
   #    end
   #  end
   #
-  #  describe "set_lock/1" do
-  #    test "sets lock in the ETS table" do
-  #      Cache.init(@table)
-  #      response = Cache.set_lock(@table)
-  #      assert response == {:ok, :success}
-  #      Cache.delete_table(@table)
-  #    end
-  #
-  #    test "fails to set lock if table is not present" do
-  #      response = Cache.set_lock(@table)
-  #      assert response == {:error, :failed}
-  #    end
-  #  end
+  describe "set_lock/1" do
+    test "sets lock in the ETS table" do
+      Cache.init(@table)
+      response = Cache.set_lock(@table)
+      assert response == {:ok, :success}
+      Cache.delete_table(@table)
+    end
+  
+    test "fails to set lock if table is not present" do
+      response = Cache.set_lock(@table)
+      assert response == {:error, :failed}
+    end
+  end
   #
   #  describe "delete_key/2" do
   #    test "deletes specified key from table" do
