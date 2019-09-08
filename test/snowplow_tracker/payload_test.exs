@@ -101,4 +101,15 @@ defmodule SnowplowTracker.PayloadTest do
              }
     end
   end
+
+  describe "decode!/1" do
+    test "returns payload object with JSON data" do
+      response =
+        "{\"test\":\"value\"}"
+        |> Payload.decode!()
+        |> Payload.get()
+
+      assert response == %{"test" => "value"}
+    end
+  end
 end

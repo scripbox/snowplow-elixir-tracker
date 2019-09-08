@@ -37,12 +37,21 @@ defmodule SnowplowTrackerTest do
         assert_received {:ok, "validated"}
         assert_received {:ok, "successful"}
       end
+
+      with_request_mock do
+        SnowplowTracker.track_page_view(
+          payload,
+          context[:tracker]
+        )
+
+        assert_received "GET request sent"
+      end
     end
   end
 
   describe "track_structured_event/1" do
     test "checks if the validate and get methods are called", context do
-      payload = Events.Structured.new(%{category: "pv", action: "click"})
+      payload = Events.Structured.new(%{name: "testscreen", category: "pv", action: "click"})
 
       with_request_mock do
         SnowplowTracker.track_struct_event(
@@ -53,6 +62,15 @@ defmodule SnowplowTrackerTest do
 
         assert_received {:ok, "validated"}
         assert_received {:ok, "successful"}
+      end
+
+      with_request_mock do
+        SnowplowTracker.track_struct_event(
+          payload,
+          context[:tracker]
+        )
+
+        assert_received "GET request sent"
       end
     end
   end
@@ -71,12 +89,21 @@ defmodule SnowplowTrackerTest do
         assert_received {:ok, "validated"}
         assert_received {:ok, "successful"}
       end
+
+      with_request_mock do
+        SnowplowTracker.track_self_describing_event(
+          payload,
+          context[:tracker]
+        )
+
+        assert_received "GET request sent"
+      end
     end
   end
 
   describe "track_screen_view/1" do
     test "checks if the validate and get methods are called", context do
-      payload = Events.ScreenView.new(%{})
+      payload = Events.ScreenView.new(%{name: "testscreen", id: "lol"})
 
       with_request_mock do
         SnowplowTracker.track_screen_view(
@@ -122,6 +149,15 @@ defmodule SnowplowTrackerTest do
         assert_received {:ok, "validated"}
         assert_received {:ok, "successful"}
       end
+
+      with_request_mock do
+        SnowplowTracker.track_ecommerce_transaction(
+          payload,
+          context[:tracker]
+        )
+
+        assert_received "GET request sent"
+      end
     end
   end
 
@@ -138,6 +174,16 @@ defmodule SnowplowTrackerTest do
 
         assert_received {:ok, "validated"}
         assert_received {:ok, "successful"}
+      end
+
+      with_request_mock do
+        SnowplowTracker.track_ecommerce_transaction_item(
+          payload,
+          context[:tracker],
+          Events.EventMock
+        )
+
+        assert_received "GET request sent"
       end
     end
   end

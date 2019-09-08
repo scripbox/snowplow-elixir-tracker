@@ -91,9 +91,6 @@ defmodule SnowplowTracker.Payload do
 
       {:error, error} ->
         {:error, error}
-
-      {:error, :invalid, pos} ->
-        {:error, "Invalid json at position: #{pos}"}
     end
   end
 
@@ -102,8 +99,10 @@ defmodule SnowplowTracker.Payload do
   """
   @spec decode!(binary) :: %__MODULE__{}
   def decode!(payload) do
-    payload
-    |> Jason.decode!()
+    response = Jason.decode!(payload)
+
+    %{}
+    |> Map.put("pairs", response)
     |> __MODULE__.new()
   end
 end
