@@ -8,12 +8,14 @@ defmodule SnowplowTracker.Emitters.Cache do
   alias :ets, as: Ets
 
   @table Application.get_env(:snowplow_tracker, :table)
+  #@persist_every Application.get_env(:snowplow_tracker, :persist_every, 5000)
+  @path Application.get_env(:snowplow_tracker, :path, ".")
   @lock "lock"
 
   def init(table \\ @table) do
     PersistentEts.new(
       table,
-      "#{Atom.to_string(table)}.tab",
+      "#{@path}/#{Atom.to_string(table)}.tab",
       [:public, :set, :named_table, {:read_concurrency, true}]
     )
 
@@ -68,6 +70,7 @@ defmodule SnowplowTracker.Emitters.Cache do
 
   def delete_table(table \\ @table) do
     Ets.delete(table)
+    Logger.log(:debug, "Deleted table #{table}")
     File.rm("#{Atom.to_string(table)}.tab")
   end
 end
