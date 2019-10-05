@@ -5,7 +5,7 @@ defmodule SnowplowTracker.Emitters.Bulk do
   """
 
   alias SnowplowTracker.Payload
-  alias SnowplowTracker.Emitters.Server
+  alias SnowplowTracker.Emitters.Cache
 
   @table Application.get_env(:snowplow_tracker, :table)
 
@@ -15,7 +15,7 @@ defmodule SnowplowTracker.Emitters.Bulk do
       |> Payload.get()
       |> Map.fetch!("eid")
 
-    :ets.insert(table, {eid, payload, url})
+    Cache.insert({eid, payload, url}, table)
     {:ok, :success}
   end
 end

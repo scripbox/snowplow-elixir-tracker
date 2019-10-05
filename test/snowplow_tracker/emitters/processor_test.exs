@@ -26,7 +26,7 @@ defmodule SnowplowTracker.ProcessorTest do
     test "sends POST request with the data in the ETS table", context do
       with_request_mock_post do
         Cache.init(@table)
-        :ets.insert(@table, {"eid", context[:payload], "test.com"})
+        Cache.insert({"eid", context[:payload], "test.com"}, @table)
         response = Processor.send(@table)
         assert response == {:ok, :success}
         assert_receive "POST request sent"

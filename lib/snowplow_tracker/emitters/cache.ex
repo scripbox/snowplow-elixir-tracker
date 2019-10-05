@@ -21,6 +21,11 @@ defmodule SnowplowTracker.Emitters.Cache do
     {:ok, :success}
   end
 
+  def insert(payload, table \\ @table) do
+    Ets.insert(table, payload)
+    {:ok, :success}
+  end
+
   def match(table \\ @table) do
     {
       :ok,
