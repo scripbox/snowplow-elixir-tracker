@@ -7,12 +7,15 @@ defmodule SnowplowTracker.Emitters.Bulk do
   alias SnowplowTracker.Payload
   alias SnowplowTracker.Emitters.Server
 
-  def create(payload, url) do
+  @table Application.get_env(:snowplow_tracker, :table)
+
+  def create(payload, url, table \\ @table) do
     eid =
       payload
       |> Payload.get()
       |> Map.fetch!("eid")
 
-    Server.insert({eid, payload, url})
+    :ets.insert(table, {eid, payload, url})
+    {:ok, :success}
   end
 end

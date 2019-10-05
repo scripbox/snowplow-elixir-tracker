@@ -14,15 +14,10 @@ defmodule SnowplowTracker.Emitters.Cache do
     PersistentEts.new(
       table,
       "#{Atom.to_string(table)}.tab",
-      [:named_table]
+      [:public, :set, :named_table, {:read_concurrency, true}]
     )
 
     Logger.log(:debug, "Table #{table} created successfully!")
-    {:ok, :success}
-  end
-
-  def insert(payload, table \\ @table) do
-    Ets.insert(table, payload)
     {:ok, :success}
   end
 
