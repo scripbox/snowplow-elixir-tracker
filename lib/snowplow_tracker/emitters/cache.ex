@@ -8,6 +8,7 @@ defmodule SnowplowTracker.Emitters.Cache do
   alias :ets, as: Ets
 
   @table Application.get_env(:snowplow_tracker, :table)
+  #@persist_every Application.get_env(:snowplow_tracker, :persist_every, 5000)
   @path Application.get_env(:snowplow_tracker, :path, ".")
   @lock "lock"
 
@@ -23,10 +24,8 @@ defmodule SnowplowTracker.Emitters.Cache do
   end
 
   def insert(payload, table \\ @table) do
-    {
-      :ok,
-      Ets.insert(table, payload)
-    }
+    Ets.insert(table, payload)
+    {:ok, :success}
   end
 
   def match(table \\ @table) do
