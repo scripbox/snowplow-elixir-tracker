@@ -48,17 +48,5 @@ defmodule SnowplowTracker.EmitterTest do
       end
     end
 
-    test "sends a POST request to the collector with the parameters", context do
-      Server.start_link(nil)
-      emitter = Map.put(context[:emitter], :request_type, "POST")
-
-      response =
-        %Payload{}
-        |> Payload.add("eid", "value")
-        |> Emitter.input(emitter)
-
-      assert response == {:ok, :success}
-      Server.delete_table()
-    end
   end
 end
