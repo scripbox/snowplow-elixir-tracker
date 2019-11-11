@@ -18,10 +18,19 @@ defmodule SnowplowTracker.Emitters.Server do
     )
   end
 
-  def init(_args) do
+  def init(args) do
+    state = %{
+      type: args,
+      data: nil
+    }
+
+    {:ok, state, {:continue, :cache_init}}
+  end
+
+  def handle_continue(:cache_init, state) do
     Cache.init()
     schedule_initial_job()
-    {:ok, nil}
+    {:noreply, state}
   end
 
   def handle_call(:delete, _from, state) do
