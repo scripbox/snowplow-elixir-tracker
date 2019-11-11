@@ -1,6 +1,6 @@
 defmodule SnowplowTracker.Emitters.Processor do
   @moduledoc """
-  Processor module implementing the functions required for the bulk APIj
+  Processor module implementing the functions required for the bulk API
   """
   require Logger
 
@@ -36,8 +36,11 @@ defmodule SnowplowTracker.Emitters.Processor do
 
     data
     |> Enum.chunk_every(@chunk_size)
-    |> Enum.map(&create_payload/1)
-    |> Enum.map(&send_request(&1, url, table))
+    |> Task.async_stream(fn chunk ->
+      create_payload(chunk)
+      |> send_request(url, table)
+    end)
+    |> Enum.to_list()
 
     {:ok, :success}
   end
@@ -52,20 +55,20 @@ defmodule SnowplowTracker.Emitters.Processor do
   end
 
   defp create_payload(events) when length(events) >= 1 do
-    event_data =
-      Enum.map(events, fn [eid, payload, _url] ->
-        {Payload.get(payload), eid}
+    events_map =
+      events
+      |> Enum.map(fn [eid, payload, _url] ->
+        {eid, Payload.get(payload)}
       end)
-
-    keys = Enum.map(event_data, fn {_, k} -> k end)
+      |> Map.new()
 
     {:ok, encoded_payload} =
       Jason.encode(%{
         schema: Constants.schema_payload_data(),
-        data: Enum.map(event_data, fn {x, _} -> x end)
+        data: Map.values(events_map)
       })
 
-    {:ok, encoded_payload, keys}
+    {:ok, encoded_payload, Map.keys(events_map)}
   end
 
   defp create_payload(_events), do: :ok
