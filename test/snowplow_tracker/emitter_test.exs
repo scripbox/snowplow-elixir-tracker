@@ -4,7 +4,6 @@ defmodule SnowplowTracker.EmitterTest do
   import Mock
 
   alias SnowplowTracker.{Errors, Request, Payload, Emitter, RequestMock}
-  alias SnowplowTracker.Emitters.Server
 
   defmacro with_request_mock_get(block) do
     quote do
