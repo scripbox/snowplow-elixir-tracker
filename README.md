@@ -7,13 +7,13 @@ Snowplow event tracker for elixir. Add analytics to your elixir/phoenix apps.
 
 ## Installation
 
-The latest version is ```0.1.0``` and requires ```elixir-1.6```. Install the package by adding the following dependency:
+The latest version is ```1.0.0``` and requires ```elixir-1.6```. Install the package by adding the following dependency:
 
 
 ```elixir
 def deps do
   [
-    {:snowplow_tracker, "~> 0.1.0"}
+    {:snowplow_tracker, "~> 1.0.0"}
   ]
 end
 ```
