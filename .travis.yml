@@ -6,7 +6,7 @@ otp_release: '17.4'
 
 matrix:
   include:
-    - elixir: '1.6'
+    - elixir: '1.8'
       otp_release: '18.0'
 script:
       - MIX_ENV=test mix do compile, coveralls.json

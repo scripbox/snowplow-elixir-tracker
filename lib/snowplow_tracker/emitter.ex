@@ -4,9 +4,10 @@ defmodule SnowplowTracker.Emitter do
   snowplow collector.
   """
   alias __MODULE__
-
-  alias SnowplowTracker.{Payload, Request, Response, Errors}
+  alias SnowplowTracker.Payload
   alias SnowplowTracker.Emitters.Helper
+  alias SnowplowTracker.Emitters.Unary, as: UnaryEmitter
+  alias SnowplowTracker.Emitters.Bulk , as: BulkEmitter
 
   @keys [
     collector_uri: "localhost",
@@ -14,9 +15,6 @@ defmodule SnowplowTracker.Emitter do
     collector_port: nil,
     protocol: "http"
   ]
-
-  defstruct @keys
-
   @type t :: %__MODULE__{
           collector_uri: String.t(),
           request_type: String.t(),
@@ -24,13 +22,17 @@ defmodule SnowplowTracker.Emitter do
           protocol: String.t()
         }
 
+  defstruct @keys
+
   # Public API
 
   @spec new(Emitter.t()) :: Emitter.t()
   def new(uri), do: struct(%Emitter{}, collector_uri: uri)
 
   @spec input(Payload.t(), Emitter.t(), struct()) :: {:ok, String.t()} | no_return()
-  def input(%Payload{} = payload, %Emitter{} = emitter, module \\ Helper) do
+  def input(payload, emitter, module \\ Helper)
+
+  def input(%Payload{} = payload, %Emitter{request_type: "GET"} = emitter, module) do
     url =
       module.generate_endpoint(
         emitter.protocol,
@@ -40,16 +42,19 @@ defmodule SnowplowTracker.Emitter do
         emitter.request_type
       )
 
-    with {:ok, response} <- Request.get(url, [], default_options()),
-         {:ok, body} <- Response.parse(response) do
-      {:ok, body}
-    else
-      {:error, error} ->
-        raise Errors.ApiError, Kernel.inspect(error)
-    end
+    UnaryEmitter.create(payload, url)
   end
 
-  defp default_options do
-    Application.get_env(:snowplow_tracker, :default_options) || []
+  def input(%Payload{} = payload, %Emitter{request_type: "POST"} = emitter, module) do
+    url =
+      module.generate_endpoint(
+        emitter.protocol,
+        emitter.collector_uri,
+        emitter.collector_port,
+        payload,
+        emitter.request_type
+      )
+
+    BulkEmitter.create(payload, url)
   end
 end

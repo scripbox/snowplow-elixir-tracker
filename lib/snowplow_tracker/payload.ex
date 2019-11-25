@@ -8,13 +8,19 @@ defmodule SnowplowTracker.Payload do
 
   alias SnowplowTracker.Payloads.Helper
 
-  @keys [pairs: %{}]
+  @keys [
+    pairs: %{}
+  ]
 
   defstruct @keys
 
   @type t :: %__MODULE__{
           pairs: map()
         }
+
+  def new(payload) do
+    struct(__MODULE__, pairs: payload["pairs"])
+  end
 
   @doc """
   This function is used to add a key-value map to the payload object
@@ -73,4 +79,30 @@ defmodule SnowplowTracker.Payload do
   """
   @spec string(t, boolean()) :: t
   def string(%Payload{} = payload, encode), do: Helper.convert_to_json(payload.pairs, encode)
+
+  @doc """
+  Decode the JSON payload storing the original json as part of the struct.
+  """
+  @spec decode(binary) :: {:ok, %__MODULE__{}} | {:error, Jason.DecodeError.t()}
+  def decode(json_payload) do
+    case Jason.decode(json_payload) do
+      {:ok, response} ->
+        __MODULE__.new(response)
+
+      {:error, error} ->
+        {:error, error}
+    end
+  end
+
+  @doc """
+  Decode the JSON payload storing the original json as part of the struct, raising if there is an error
+  """
+  @spec decode!(binary) :: %__MODULE__{}
+  def decode!(payload) do
+    response = Jason.decode!(payload)
+
+    %{}
+    |> Map.put("pairs", response)
+    |> __MODULE__.new()
+  end
 end

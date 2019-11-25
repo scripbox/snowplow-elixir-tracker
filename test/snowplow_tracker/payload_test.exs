@@ -82,4 +82,34 @@ defmodule SnowplowTracker.PayloadTest do
       assert expected_response == response
     end
   end
+
+  describe "decode/1" do
+    test "decodes the json input string" do
+      expected_response = Payload.new(%{test: "value"})
+
+      response = Payload.decode("{\"test\":\"value\"}")
+
+      assert response == expected_response
+    end
+
+    test "fails for invalid json" do
+      response = Payload.decode("Invalid Json")
+
+      assert response == {
+               :error,
+               %Jason.DecodeError{data: "Invalid Json", position: 0, token: nil}
+             }
+    end
+  end
+
+  describe "decode!/1" do
+    test "returns payload object with JSON data" do
+      response =
+        "{\"test\":\"value\"}"
+        |> Payload.decode!()
+        |> Payload.get()
+
+      assert response == %{"test" => "value"}
+    end
+  end
 end

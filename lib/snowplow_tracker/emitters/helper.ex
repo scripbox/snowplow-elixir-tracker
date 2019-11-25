@@ -4,9 +4,13 @@ defmodule SnowplowTracker.Emitters.Helper do
   necessary for the emitter module
   """
 
-  alias SnowplowTracker.{Errors, Constants}
+  alias SnowplowTracker.{Constants, Payload}
 
   @get_method "GET"
+  @post_method "POST"
+  @get_path Constants.get_protocol_path()
+  @post_vendor Constants.post_protocol_vendor()
+  @post_version Constants.post_protocol_version()
 
   # Public API
 
@@ -14,29 +18,37 @@ defmodule SnowplowTracker.Emitters.Helper do
   This function is used to generate the endpoint with the query parameters
   which are used to send events to the collector.
   """
-  def generate_endpoint(protocol, uri, nil = _port, payload, @get_method) do
-    do_generate_endpoint(protocol, uri, "", payload)
+  @spec generate_endpoint(String.t(), String.t(), String.t(), Payload.t(), String.t()) ::
+          String.t()
+  def generate_endpoint(protocol, uri, nil = _port, payload, request_method) do
+    do_generate_endpoint(
+      protocol,
+      uri,
+      "",
+      payload,
+      request_method
+    )
   end
 
-  def generate_endpoint(protocol, uri, port, payload, @get_method) do
-    do_generate_endpoint(protocol, uri, ":#{port}", payload)
-  end
-
-  def generate_endpoint(_protocol, _uri, _port, _payload, invalid_method) do
-    message = "#{invalid_method} method not implemented"
-    raise Errors.NotImplemented, message
+  def generate_endpoint(protocol, uri, port, payload, request_method) do
+    do_generate_endpoint(
+      protocol,
+      uri,
+      ":#{port}",
+      payload,
+      request_method
+    )
   end
 
   # Private API
 
   @doc false
-  defp do_generate_endpoint(protocol, uri, port, payload) do
+  defp do_generate_endpoint(protocol, uri, port, payload, @get_method) do
     params = URI.encode_query(payload)
-    "#{protocol}://#{uri}#{port}/#{protocol_path()}?#{params}"
+    "#{protocol}://#{uri}#{port}/#{@get_path}?#{params}"
   end
 
-  @doc false
-  defp protocol_path do
-    Constants.get_protocol_path()
+  defp do_generate_endpoint(protocol, uri, port, _payload, @post_method) do
+    "#{protocol}://#{uri}#{port}/#{@post_vendor}?#{@post_version}"
   end
 end

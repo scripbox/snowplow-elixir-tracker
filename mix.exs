@@ -4,7 +4,7 @@ defmodule SnowplowTracker.MixProject do
   def project do
     [
       app: :snowplow_tracker,
-      version: "0.1.1",
+      version: "1.0.0",
       elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
       test_coverage: [tool: ExCoveralls],
@@ -25,6 +25,7 @@ defmodule SnowplowTracker.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
+      mod: {SnowplowTracker.Application, []},
       extra_applications: [:logger]
     ]
   end
@@ -35,6 +36,7 @@ defmodule SnowplowTracker.MixProject do
       {:httpoison, "~> 1.1"},
       {:jason, "~> 1.0"},
       {:uuid, "~> 1.1"},
+      {:persistent_ets, "~> 0.2.1"},
       {:ex_doc, "~> 0.11", only: :dev},
       {:mock, "~> 0.3.0", only: :test},
       {:excoveralls, "~> 0.8", only: :test}
