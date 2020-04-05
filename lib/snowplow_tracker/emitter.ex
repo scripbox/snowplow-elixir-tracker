@@ -7,7 +7,7 @@ defmodule SnowplowTracker.Emitter do
   alias SnowplowTracker.Payload
   alias SnowplowTracker.Emitters.Helper
   alias SnowplowTracker.Emitters.Unary, as: UnaryEmitter
-  alias SnowplowTracker.Emitters.Bulk , as: BulkEmitter
+  alias SnowplowTracker.Emitters.Bulk, as: BulkEmitter
 
   @keys [
     collector_uri: "localhost",

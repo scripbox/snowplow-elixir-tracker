@@ -34,4 +34,5 @@ config :snowplow_tracker,
     timeout: 5000,
     recv_timeout: 2000,
     hackney: [pool: :snowplow_hackney_pool]
-  ]
+  ],
+  table: :snowplow_events
