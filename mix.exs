@@ -38,6 +38,8 @@ defmodule SnowplowTracker.MixProject do
       {:uuid, "~> 1.1"},
       {:persistent_ets, "~> 0.2.1"},
       {:ex_doc, "~> 0.11", only: :dev},
+      {:benchee, "~> 1.0", only: :dev},
+      {:benchee_html, "~> 1.0", only: :dev},
       {:mock, "~> 0.3.0", only: :test},
       {:excoveralls, "~> 0.8", only: :test}
     ]

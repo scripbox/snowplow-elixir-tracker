@@ -46,6 +46,5 @@ defmodule SnowplowTracker.EmitterTest do
         Emitter.input(payload, context[:emitter])
       end
     end
-
   end
 end

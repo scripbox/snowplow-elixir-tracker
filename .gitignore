@@ -24,3 +24,5 @@ snowplow_elixir_tracker-*.tar
 
 # Ignore elixir tables created using PersistentEts
 *.tab
+# Ignore benchee output files
+benchmarks/*
