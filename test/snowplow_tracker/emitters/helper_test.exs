@@ -40,7 +40,7 @@ defmodule SnowplowTracker.Emitters.HelperTest do
           "POST"
         )
 
-      assert String.contains?(url, "http://localhost:8000/com.snowplowanalytics.snowplow?tp2")
+      assert String.contains?(url, "http://localhost:8000/com.snowplowanalytics.snowplow/tp2")
     end
   end
 end
