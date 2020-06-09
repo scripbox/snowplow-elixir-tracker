@@ -26,16 +26,14 @@ defmodule SnowplowTracker.Helper do
   end
 
   defp add_contexts(payload, contexts, encode) do
-    json_contexts = for context <- contexts, do: SelfDescribingJson.get(context)
-
     sdj = %SelfDescribingJson{
       schema: Constants.schema_contexts(),
-      data: json_contexts
+      data: contexts
     }
 
     Payload.add_json(
       payload,
-      SelfDescribingJson.get(sdj),
+      sdj,
       Constants.context_encoded(),
       Constants.context(),
       encode

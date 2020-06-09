@@ -63,7 +63,7 @@ defmodule SnowplowTracker.HelperTest do
         "tv" => "elixir-0.1.0",
         "uid" => "UCANTSEEME",
         "cx" =>
-          "IntcImRhdGFcIjpbXCJ7XFxcImRhdGFcXFwiOlxcXCJkYXRhXFxcIixcXFwic2NoZW1hXFxcIjpcXFwidGVzdF9zY2hlbWFcXFwifVwiXSxcInNjaGVtYVwiOlwiaWdsdTpjb20uc25vd3Bsb3dhbmFseXRpY3Muc25vd3Bsb3cvY29udGV4dHMvanNvbnNjaGVtYS8xLTAtMVwifSI="
+          "eyJkYXRhIjpbeyJkYXRhIjoiZGF0YSIsInNjaGVtYSI6InRlc3Rfc2NoZW1hIn1dLCJzY2hlbWEiOiJpZ2x1OmNvbS5zbm93cGxvd2FuYWx5dGljcy5zbm93cGxvdy9jb250ZXh0cy9qc29uc2NoZW1hLzEtMC0xIn0="
       }
 
       response =
@@ -89,7 +89,7 @@ defmodule SnowplowTracker.HelperTest do
         "tv" => "elixir-0.1.0",
         "uid" => "UCANTSEEME",
         "co" =>
-          "\"{\\\"data\\\":[\\\"{\\\\\\\"data\\\\\\\":\\\\\\\"data\\\\\\\",\\\\\\\"schema\\\\\\\":\\\\\\\"test_schema\\\\\\\"}\\\"],\\\"schema\\\":\\\"iglu:com.snowplowanalytics.snowplow/contexts/jsonschema/1-0-1\\\"}\""
+          ~s({"data":[{"data":"data","schema":"test_schema"}],"schema":"iglu:com.snowplowanalytics.snowplow/contexts/jsonschema/1-0-1"})
       }
 
       response =
