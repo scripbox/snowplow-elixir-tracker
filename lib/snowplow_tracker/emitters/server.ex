@@ -1,6 +1,6 @@
 defmodule SnowplowTracker.Emitters.Server do
   @moduledoc """
-  This module defines the genserver that will be responsible for scheduling the jobs to 
+  This module defines the genserver that will be responsible for scheduling the jobs to
   fetch events from ETS
   """
 
@@ -50,11 +50,11 @@ defmodule SnowplowTracker.Emitters.Server do
 
   defp schedule_initial_job() do
     # In 5 seconds
-    Process.send_after(self(), :perform, 5_000)
+    Process.send_after(self(), :perform, 1_000)
   end
 
   defp schedule_next_job() do
     # In 120 seconds
-    Process.send_after(self(), :perform, 120_000)
+    Process.send_after(self(), :perform, 5_000)
   end
 end
