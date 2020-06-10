@@ -49,12 +49,16 @@ defmodule SnowplowTracker.Emitters.Server do
   end
 
   defp schedule_initial_job() do
-    # In 5 seconds
-    Process.send_after(self(), :perform, 1_000)
+    Process.send_after(self(), :perform, initial_delay())
   end
 
   defp schedule_next_job() do
-    # In 120 seconds
-    Process.send_after(self(), :perform, 5_000)
+    Process.send_after(self(), :perform, next_delay())
   end
+
+  defp server_config, do: Application.get_env(:snowplow_tracker, :emitters)[:server]
+
+  defp initial_delay, do: server_config()[:initial_delay]
+
+  defp next_delay, do: server_config()[:next_delay]
 end
