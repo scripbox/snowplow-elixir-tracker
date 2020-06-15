@@ -49,6 +49,6 @@ defmodule SnowplowTracker.Emitters.Helper do
   end
 
   defp do_generate_endpoint(protocol, uri, port, _payload, @post_method) do
-    "#{protocol}://#{uri}#{port}/#{@post_vendor}?#{@post_version}"
+    "#{protocol}://#{uri}#{port}/#{@post_vendor}/#{@post_version}"
   end
 end

@@ -8,7 +8,7 @@ defmodule SnowplowTracker.Emitters.Processor do
   alias SnowplowTracker.Emitters.Cache
 
   @chunk_size 100
-  @headers [Accept: Constants.post_content_type()]
+  @headers ["Content-Type": Constants.post_content_type()]
   @options Application.get_env(:snowplow_tracker, :default_options) || []
   @table Application.get_env(:snowplow_tracker, :table)
 
