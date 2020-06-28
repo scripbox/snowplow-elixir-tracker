@@ -35,4 +35,10 @@ config :snowplow_tracker,
     recv_timeout: 2000,
     hackney: [pool: :snowplow_hackney_pool]
   ],
-  table: :snowplow_events
+  table: :snowplow_events,
+  emitters: [
+    server: [
+      initial_delay: 5_000,
+      next_delay: 120_000
+    ]
+  ]
