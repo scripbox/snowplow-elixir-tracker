@@ -1,6 +1,6 @@
 # SnowplowTracker
 
-[![codecov](https://codecov.io/gh/scripbox/snowplow-elixir-tracker/branch/master/graph/badge.svg)](https://codecov.io/gh/scripbox/snowplow-elixir-tracker) ![Hex.pm](https://img.shields.io/hexpm/dt/snowplow_tracker.svg) ![Travis](https://img.shields.io/travis/scripbox/snowplow-elixir-tracker.svg)
+![CI](https://github.com/scripbox/snowplow-elixir-tracker/workflows/CI/badge.svg?branch=master&event=push) ![Hex.pm](https://img.shields.io/hexpm/dt/snowplow_tracker.svg) ![Travis](https://img.shields.io/travis/scripbox/snowplow-elixir-tracker.svg)
 
 
 Snowplow event tracker for elixir. Add analytics to your elixir/phoenix apps.
