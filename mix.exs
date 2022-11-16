@@ -35,7 +35,7 @@ defmodule SnowplowTracker.MixProject do
     [
       {:httpoison, "~> 1.1"},
       {:jason, "~> 1.0"},
-      {:uuid, "~> 1.1"},
+      {:elixir_uuid, "~> 1.2"},
       {:persistent_ets, "~> 0.2.1"},
       {:ex_doc, "~> 0.11", only: :dev},
       {:benchee, "~> 1.0", only: :dev},
